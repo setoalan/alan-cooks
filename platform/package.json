@@ -1,7 +1,7 @@
 {
-  "name": "alan-cooks",
+  "name": "alan-cooks-platform",
   "version": "1.0.0",
-  "private": false,
+  "private": true,
   "description": "Alan Cooks platform",
   "repository": {
     "type": "git",
@@ -9,7 +9,6 @@
   },
   "license": "MIT",
   "author": "Alan Seto <hello@alanseto.com>",
-  "main": "package.json",
   "scripts": {
     "build": "sanity build",
     "start": "sanity start"

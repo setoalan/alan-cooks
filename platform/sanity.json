@@ -1,11 +1,11 @@
 {
   "root": true,
-  "project": {
-    "name": "alan-cooks"
-  },
   "api": {
     "projectId": "edb0ptmz",
     "dataset": "production"
+  },
+  "project": {
+    "name": "alan-cooks"
   },
   "plugins": ["@sanity/base", "@sanity/default-layout", "@sanity/default-login", "@sanity/desk-tool"],
   "env": {
