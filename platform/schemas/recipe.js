@@ -1,8 +1,8 @@
 export default {
   name: 'recipe',
   type: 'document',
-  title: 'Recipe',
-  icon: () => `🍽`,
+  title: 'Recipes',
+  icon: () => `📖`,
   fields: [
     {
       name: 'name',
@@ -53,6 +53,9 @@ export default {
       type: 'boolean',
       title: 'Favorite',
       initialValue: false,
+      options: {
+        layout: 'checkbox',
+      },
       validation: Rule => Rule.required(),
     },
     {
@@ -65,12 +68,27 @@ export default {
       type: 'url',
       title: 'Challenge Link',
     },
-    // {
-    //   name: 'ingredients',
-    //   type: 'array',
-    //   title: 'Ingredients',
-    //   of: [{ type: 'reference', to: [{ type: 'ingredient' }] }],
-    //   validation: Rule => Rule.required(),
-    // },
+    {
+      name: 'ingredients',
+      type: 'array',
+      title: 'Ingredients',
+      of: [{ type: 'reference', to: [{ type: 'ingredient' }] }],
+    },
   ],
+  preview: {
+    select: {
+      title: 'name',
+      media: 'image',
+      ingredient0: 'ingredients.0.name',
+      ingredient1: 'ingredients.1.name',
+      ingredient2: 'ingredients.2.name',
+      ingredient3: 'ingredients.3.name',
+      ingredient4: 'ingredients.4.name',
+    },
+    prepare: ({ title, media, ...ingredients }) => ({
+      title,
+      media,
+      subtitle: Object.values(ingredients).filter(Boolean).join(', ').toLowerCase(),
+    }),
+  },
 };
