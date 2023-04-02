@@ -1,7 +1,7 @@
-export default {
+module.exports = {
   siteMetadata: {
     title: `Alan Cooks`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://www.alancooks.recipes`,
   },
   plugins: [
     {
@@ -17,5 +17,3 @@ export default {
     'gatsby-plugin-styled-components',
   ],
 };
-
-export default config;
