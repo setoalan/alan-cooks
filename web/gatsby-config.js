@@ -9,11 +9,10 @@ module.exports = {
   plugins: [
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
-    'gatsby-plugin-styled-components',
     {
       resolve: 'gatsby-source-sanity',
       options: {
-        projectId: 'edb0ptmz',
+        projectId: process.env.SANITY_PROJECT_ID,
         dataset: 'production',
         watchMode: true,
         token: process.env.SANITY_TOKEN,
