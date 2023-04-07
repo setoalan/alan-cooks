@@ -2,9 +2,9 @@ require('dotenv').config({ path: '.env' });
 
 module.exports = {
   siteMetadata: {
-    title: `Alan Cooks`,
-    siteUrl: `https://www.alancooks.recipes`,
-    description: `Alan cooks recipes!`,
+    title: 'Alan Cooks',
+    siteUrl: 'https://www.alancooks.recipes',
+    description: 'Alan cooks recipes!',
   },
   plugins: [
     'gatsby-plugin-image',
