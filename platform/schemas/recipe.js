@@ -33,7 +33,6 @@ export default {
       name: 'link',
       type: 'url',
       title: 'Recipe Link',
-      validation: Rule => Rule.required(),
     },
     {
       name: 'image',
@@ -46,6 +45,11 @@ export default {
       type: 'number',
       title: 'Rating',
       initialValue: 1,
+      options: {
+        list: [1, 2, 3, 4, 5],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
       validation: Rule => Rule.required().min(1).max(5),
     },
     {
