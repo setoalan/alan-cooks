@@ -22,13 +22,15 @@ export const query = graphql`
         slug {
           current
         }
-        ingredients {
-          name
-        }
+        date
         image {
           asset {
             gatsbyImageData(width: 400, placeholder: BLURRED)
           }
+        }
+        favorite
+        ingredients {
+          name
         }
       }
     }
