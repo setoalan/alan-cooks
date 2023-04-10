@@ -17,7 +17,7 @@ export default function RecipePage({ data }) {
   const imageData = getImage(image.asset);
 
   return (
-    <Grid2 container marginTop={3}>
+    <Grid2 container>
       <Grid2 sm={6} marginBottom={{ xs: 3, sm: 0 }}>
         <GatsbyImage
           image={imageData}
@@ -30,22 +30,18 @@ export default function RecipePage({ data }) {
           `}
         />
       </Grid2>
-      <Grid2 sm={6} alignSelf="center" paddingLeft={3}>
+      <Grid2 sm={6} alignSelf="center" paddingLeft={{ xs: 0, sm: 3 }} textAlign="center">
         {favorite && (
-          <Box textAlign="center">
+          <Box>
             <FavoriteIcon alignSelf="center" fontSize="large" />
           </Box>
         )}
-        <Typography variant="h2" textAlign="center">
+        <Typography variant="h2" fontSize={{ xs: '2rem', sm: '3rem', md: '4rem' }}>
           {name}
         </Typography>
-        <Typography variant="body1" textAlign="center">
-          {link}
-        </Typography>
-        <Typography variant="body1" textAlign="center">
-          {formattedDate}
-        </Typography>
-        <Box textAlign="center">
+        <Typography variant="body1">{link}</Typography>
+        <Typography variant="body1">{formattedDate}</Typography>
+        <Box>
           {[...Array(rating)].map((_, i) => (
             <StarIcon key={`star-${i}`} fontSize="large" />
           ))}
@@ -53,13 +49,9 @@ export default function RecipePage({ data }) {
             <StarBorderIcon key={`star-border-${i}`} fontSize="large" />
           ))}
         </Box>
-        <Typography variant="body1" textAlign="center">
-          {challenge}
-        </Typography>
-        <Typography variant="body1" textAlign="center">
-          {challengeUrl}
-        </Typography>
-        <Typography variant="body1" textAlign="center">
+        <Typography variant="body1">{challenge}</Typography>
+        <Typography variant="body1">{challengeUrl}</Typography>
+        <Typography variant="body1">
           {ingredients
             .map(ingredient => ingredient.name)
             .join(', ')

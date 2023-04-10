@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import StarIcon from '@mui/icons-material/Star';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { css } from '@emotion/css';
 
@@ -28,10 +28,8 @@ export default function RecipeListItem({ recipe }) {
           .map(ingredient => ingredient.name)
           .join(', ')
           .toLowerCase()}`}
-        actionIcon={recipe.favorite && <StarIcon sx={{ color: '#ffc107', marginRight: 1 }} />}
-      >
-        <StarIcon />
-      </ImageListItemBar>
+        actionIcon={recipe.favorite && <FavoriteIcon sx={{ color: '#ffc107', marginRight: 2 }} />}
+      />
     </Link>
   );
 }

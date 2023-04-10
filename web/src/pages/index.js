@@ -5,12 +5,7 @@ import RecipeGrid from '../components/RecipeGrid';
 export default function HomePage({ data }) {
   const recipes = data.recipes.nodes;
 
-  return (
-    <>
-      <h1>Alan Cooks</h1>
-      <RecipeGrid recipes={recipes} />
-    </>
-  );
+  return <RecipeGrid recipes={recipes} />;
 }
 
 export const query = graphql`
