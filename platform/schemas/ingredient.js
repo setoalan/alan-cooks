@@ -11,6 +11,12 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
+      name: 'icon',
+      type: 'string',
+      title: 'Icon',
+      validation: Rule => Rule.required(),
+    },
+    {
       name: 'vegetarian',
       type: 'boolean',
       title: 'Vegetarian',

@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { css } from '@emotion/css';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -51,12 +52,18 @@ export default function RecipePage({ data }) {
         </Box>
         <Typography variant="body1">{challenge}</Typography>
         <Typography variant="body1">{challengeUrl}</Typography>
-        <Typography variant="body1">
-          {ingredients
-            .map(ingredient => ingredient.name)
-            .join(', ')
-            .toLowerCase()}
-        </Typography>
+        <Box display="flex" justifyContent="center" gap={1}>
+          {ingredients.map(ingredient => (
+            <Button
+              key={ingredient.id}
+              startIcon={
+                <img src={`https://img.icons8.com/color/24/null/${ingredient.icon}.png`} alt={ingredient.icon} />
+              }
+            >
+              {ingredient.name}
+            </Button>
+          ))}
+        </Box>
       </Grid2>
     </Grid2>
   );
@@ -81,6 +88,7 @@ export const query = graphql`
       ingredients {
         id
         name
+        icon
         vegetarian
       }
     }
