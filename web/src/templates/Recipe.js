@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Link from '@mui/material/Link';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import Typography from '@mui/material/Typography';
@@ -14,7 +15,14 @@ export default function RecipePage({ data }) {
   const { recipe } = data;
   const { name, date, link, image, rating, favorite, challenge, challengeUrl, ingredients } = recipe;
 
-  const formattedDate = new Date(date).toLocaleString('en-US');
+  const formattedDate = new Date(date).toLocaleString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
   const imageData = getImage(image.asset);
 
   return (
@@ -37,11 +45,27 @@ export default function RecipePage({ data }) {
             <FavoriteIcon alignSelf="center" fontSize="large" />
           </Box>
         )}
+
         <Typography variant="h2" fontSize={{ xs: '2rem', sm: '3rem', md: '4rem' }}>
           {name}
         </Typography>
-        <Typography variant="body1">{link}</Typography>
-        <Typography variant="body1">{formattedDate}</Typography>
+        <Typography variant="body1">{challenge ? `${challenge} • ${formattedDate}` : formattedDate}</Typography>
+        <Box display="flex" justifyContent="center" gap={1}>
+          {link && (
+            <Link href={link} target="_blank" rel="noreferrer">
+              <Button startIcon={<img src="https://img.icons8.com/color/24/null/cookbook.png" alt="cookbook" />}>
+                Recipe Link
+              </Button>
+            </Link>
+          )}
+          {challengeUrl && (
+            <Link href={challengeUrl} target="_blank" rel="noreferrer">
+              <Button startIcon={<img src="https://img.icons8.com/color/24/null/reddit.png" alt="reddit" />}>
+                Reddit Challenge
+              </Button>
+            </Link>
+          )}
+        </Box>
         <Box>
           {[...Array(rating)].map((_, i) => (
             <StarIcon key={`star-${i}`} fontSize="large" />
@@ -50,8 +74,6 @@ export default function RecipePage({ data }) {
             <StarBorderIcon key={`star-border-${i}`} fontSize="large" />
           ))}
         </Box>
-        <Typography variant="body1">{challenge}</Typography>
-        <Typography variant="body1">{challengeUrl}</Typography>
         <Box display="flex" justifyContent="center" gap={1}>
           {ingredients.map(ingredient => (
             <Button
