@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 import RecipeGrid from '../components/RecipeGrid';
+import IngredientsFilter from '../components/IngredientsFilter';
 
 export default function HomePage({ data }) {
   const recipes = data.recipes.nodes;
 
-  return <RecipeGrid recipes={recipes} />;
+  return (
+    <>
+      <IngredientsFilter />
+      <RecipeGrid recipes={recipes} />
+    </>
+  );
 }
 
 export const query = graphql`
