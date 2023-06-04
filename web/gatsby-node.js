@@ -29,8 +29,34 @@ async function createRecipePages({ graphql, actions }) {
   });
 }
 
+async function createIngredientPages({ graphql, actions }) {
+  const ingredientTemplate = path.resolve('./src/pages/index.js');
+
+  const { data } = await graphql(`
+    query {
+      ingredients: allSanityIngredient {
+        nodes {
+          id
+          name
+        }
+      }
+    }
+  `);
+
+  data.ingredients.nodes.forEach(({ name }) => {
+    actions.createPage({
+      path: `ingredient/${name.toLowerCase()}`,
+      component: ingredientTemplate,
+      context: {
+        ingredient: name,
+        ingredientRegex: `/${name}/i`,
+      },
+    });
+  });
+}
+
 async function createPages(params) {
-  await createRecipePages(params);
+  await Promise.all([createRecipePages(params), createIngredientPages(params)]);
 }
 
 module.exports = {

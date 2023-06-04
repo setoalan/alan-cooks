@@ -26,7 +26,7 @@ function getIngredientsWithCounts(recipes) {
   return Object.values(ingredientCounts).sort((a, b) => b.count - a.count);
 }
 
-export default function IngredientsFilter() {
+export default function IngredientsFilter({ activeIngredient }) {
   const { recipes } = useStaticQuery(graphql`
     query {
       recipes: allSanityRecipe {
@@ -45,9 +45,20 @@ export default function IngredientsFilter() {
 
   return (
     <div>
+      <Link to="/">
+        <Button
+          startIcon={<img src={`https://img.icons8.com/color/24/null/infinity.png`} alt="infinity" />}
+          variant={activeIngredient === undefined ? 'contained' : 'text'}
+        >
+          ALL {recipes.nodes.length}
+        </Button>
+      </Link>
       {ingredientsWithCounts.map(({ id, name, icon, count }) => (
         <Link key={id} to={`/ingredient/${name.toLowerCase()}`}>
-          <Button startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} />}>
+          <Button
+            startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} />}
+            variant={activeIngredient === name ? 'contained' : 'text'}
+          >
             {name} {count}
           </Button>
         </Link>
