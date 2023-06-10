@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { css } from '@emotion/css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Link from '@mui/material/Link';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Typography from '@mui/material/Typography';
 
 export default function RecipePage({ data }) {
@@ -49,19 +49,27 @@ export default function RecipePage({ data }) {
         <Typography variant="h2" fontSize={{ xs: '2rem', sm: '3rem', md: '4rem' }}>
           {name}
         </Typography>
-        <Typography variant="body1">{challenge ? `${challenge} • ${formattedDate}` : formattedDate}</Typography>
+        <Typography variant="body1">
+          {challenge ? `${challenge.toUpperCase()} • ${formattedDate}` : formattedDate}
+        </Typography>
         <Box display="flex" justifyContent="center" gap={1}>
           {link && (
-            <Link href={link} target="_blank" rel="noreferrer">
-              <Button startIcon={<img src="https://img.icons8.com/color/24/null/cookbook.png" alt="cookbook" />}>
-                Recipe Link
+            <Link to={link} target="_blank" rel="noreferrer">
+              <Button
+                startIcon={<img src="https://img.icons8.com/color/24/null/cookbook.png" alt="cookbook" />}
+                endIcon={<OpenInNewIcon />}
+              >
+                View Recipe
               </Button>
             </Link>
           )}
           {challengeUrl && (
-            <Link href={challengeUrl} target="_blank" rel="noreferrer">
-              <Button startIcon={<img src="https://img.icons8.com/color/24/null/reddit.png" alt="reddit" />}>
-                Reddit Challenge
+            <Link to={challengeUrl} target="_blank" rel="noreferrer">
+              <Button
+                startIcon={<img src="https://img.icons8.com/color/24/null/reddit.png" alt="reddit" />}
+                endIcon={<OpenInNewIcon />}
+              >
+                View Reddit Challenge
               </Button>
             </Link>
           )}
@@ -74,16 +82,13 @@ export default function RecipePage({ data }) {
             <StarBorderIcon key={`star-border-${i}`} fontSize="large" />
           ))}
         </Box>
-        <Box display="flex" justifyContent="center" gap={1}>
-          {ingredients.map(ingredient => (
-            <Button
-              key={ingredient.id}
-              startIcon={
-                <img src={`https://img.icons8.com/color/24/null/${ingredient.icon}.png`} alt={ingredient.icon} />
-              }
-            >
-              {ingredient.name}
-            </Button>
+        <Box display="flex" justifyContent="center" flexWrap="wrap" gap={1} sx={{ whiteSpace: 'nowrap' }}>
+          {ingredients.map(({ id, name, icon }) => (
+            <Link key={id} to={`/ingredient/${name.toLowerCase()}`}>
+              <Button startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} />}>
+                {name}
+              </Button>
+            </Link>
           ))}
         </Box>
       </Grid2>

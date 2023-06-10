@@ -15,10 +15,10 @@ export default function Nav() {
       position="sticky"
       sx={{ paddingTop: 2, backgroundColor: theme.palette.background.default, boxShadow: 'none' }}
     >
-      <Toolbar>
+      <Toolbar disableGutters>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <Box display="flex">
-            <FoodBank marginRight={3} sx={{ fontSize: { xs: '3rem', sm: '5rem' }, fill: theme.palette.common.black }} />
+            <FoodBank sx={{ marginRight: 1, fontSize: { xs: '3rem', sm: '5rem' }, fill: theme.palette.common.black }} />
             <Typography variant="h1" fontSize={{ xs: '3rem', sm: '5rem' }} color={`${theme.palette.text.primary}`}>
               Alan Cooks
             </Typography>
