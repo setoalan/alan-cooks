@@ -49,7 +49,7 @@ async function createIngredientPages({ graphql, actions }) {
       component: ingredientTemplate,
       context: {
         ingredient: name,
-        ingredientRegex: `/${name}/i`,
+        ingredientRegex: `/${name.replace('+', '\\+')}/i`,
       },
     });
   });

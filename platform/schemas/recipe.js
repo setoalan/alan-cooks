@@ -30,9 +30,9 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
-      name: 'link',
+      name: 'url',
       type: 'url',
-      title: 'Recipe Link',
+      title: 'Recipe URL',
     },
     {
       name: 'image',
@@ -70,7 +70,7 @@ export default {
     {
       name: 'challenge_url',
       type: 'url',
-      title: 'Challenge Link',
+      title: 'Challenge URL',
     },
     {
       name: 'ingredients',

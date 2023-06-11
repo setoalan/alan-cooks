@@ -44,7 +44,7 @@ export default function IngredientsFilter({ activeIngredient }) {
   const ingredientsWithCounts = getIngredientsWithCounts(recipes.nodes);
 
   return (
-    <div>
+    <>
       <Link to="/">
         <Button
           startIcon={<img src={`https://img.icons8.com/color/24/null/infinity.png`} alt="infinity" />}
@@ -63,6 +63,6 @@ export default function IngredientsFilter({ activeIngredient }) {
           </Button>
         </Link>
       ))}
-    </div>
+    </>
   );
 }

@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 
 export default function RecipePage({ data }) {
   const { recipe } = data;
-  const { name, date, link, image, rating, favorite, challenge, challengeUrl, ingredients } = recipe;
+  const { name, date, url, image, rating, favorite, challenge, challengeUrl, ingredients } = recipe;
 
   const formattedDate = new Date(date).toLocaleString('en-US', {
     weekday: 'long',
@@ -53,25 +53,25 @@ export default function RecipePage({ data }) {
           {challenge ? `${challenge.toUpperCase()} • ${formattedDate}` : formattedDate}
         </Typography>
         <Box display="flex" justifyContent="center" gap={1}>
-          {link && (
-            <Link to={link} target="_blank" rel="noreferrer">
+          {url && (
+            <a href={url} target="_blank" rel="noreferrer">
               <Button
                 startIcon={<img src="https://img.icons8.com/color/24/null/cookbook.png" alt="cookbook" />}
                 endIcon={<OpenInNewIcon />}
               >
                 View Recipe
               </Button>
-            </Link>
+            </a>
           )}
           {challengeUrl && (
-            <Link to={challengeUrl} target="_blank" rel="noreferrer">
+            <a href={challengeUrl} target="_blank" rel="noreferrer">
               <Button
                 startIcon={<img src="https://img.icons8.com/color/24/null/reddit.png" alt="reddit" />}
                 endIcon={<OpenInNewIcon />}
               >
                 View Reddit Challenge
               </Button>
-            </Link>
+            </a>
           )}
         </Box>
         <Box>
@@ -102,7 +102,7 @@ export const query = graphql`
       id
       name
       date
-      link
+      url
       image {
         asset {
           gatsbyImageData(width: 600, placeholder: BLURRED)
