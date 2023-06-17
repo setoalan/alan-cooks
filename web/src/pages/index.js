@@ -19,7 +19,7 @@ export const query = graphql`
   query ($ingredientRegex: String) {
     recipes: allSanityRecipe(
       filter: { ingredients: { elemMatch: { name: { regex: $ingredientRegex } } } }
-      sort: { order: DESC, fields: date }
+      sort: { date: DESC }
     ) {
       nodes {
         id
