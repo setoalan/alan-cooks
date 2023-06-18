@@ -1,6 +1,10 @@
 import React from 'react';
-import { graphql, Link, useStaticQuery } from 'gatsby';
-import Button from '@mui/material/Button';
+import { graphql, useStaticQuery } from 'gatsby';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IngredientsFilterButton from './IngredientsFilterButton';
 
 function getIngredientsWithCounts(recipes) {
   const ingredientCounts = recipes
@@ -41,28 +45,38 @@ export default function IngredientsFilter({ activeIngredient }) {
     }
   `);
 
-  const ingredientsWithCounts = getIngredientsWithCounts(recipes.nodes);
+  const ingredientsWithCounts = getIngredientsWithCounts(recipes.nodes).sort((a, b) => b.name === activeIngredient);
+
+  const ingredientsWithCountsSummary = ingredientsWithCounts.slice(0, 7);
+  const ingredientsWithCountsDetails = ingredientsWithCounts.slice(8, ingredientsWithCounts.length - 1);
 
   return (
-    <>
-      <Link to="/">
-        <Button
-          startIcon={<img src={`https://img.icons8.com/color/24/null/infinity.png`} alt="infinity" />}
-          variant={activeIngredient === undefined ? 'contained' : 'text'}
-        >
-          ALL {recipes.nodes.length}
-        </Button>
-      </Link>
-      {ingredientsWithCounts.map(({ id, name, icon, count }) => (
-        <Link key={id} to={`/ingredient/${name.toLowerCase()}`}>
-          <Button
-            startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} />}
-            variant={activeIngredient === name ? 'contained' : 'text'}
-          >
-            {name} {count}
-          </Button>
-        </Link>
-      ))}
-    </>
+    <Accordion sx={{ mb: 2 }}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="ingredients-content" id="ingredients-header">
+        <IngredientsFilterButton
+          id="ingredients-all"
+          icon="infinity"
+          count={recipes.nodes.length}
+          link="/"
+          activeIngredient={activeIngredient}
+        />
+        {ingredientsWithCountsSummary.map(ingredient => (
+          <IngredientsFilterButton
+            {...ingredient}
+            link={`/ingredient/${ingredient.name.toLowerCase()}`}
+            activeIngredient={activeIngredient}
+          />
+        ))}
+      </AccordionSummary>
+      <AccordionDetails>
+        {ingredientsWithCountsDetails.map(ingredient => (
+          <IngredientsFilterButton
+            {...ingredient}
+            link={`/ingredient/${ingredient.name.toLowerCase()}`}
+            activeIngredient={activeIngredient}
+          />
+        ))}
+      </AccordionDetails>
+    </Accordion>
   );
 }
