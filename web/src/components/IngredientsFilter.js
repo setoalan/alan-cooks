@@ -60,18 +60,20 @@ export default function IngredientsFilter({ activeIngredient }) {
           link="/"
           activeIngredient={activeIngredient}
         />
-        {ingredientsWithCountsSummary.map(ingredient => (
+        {ingredientsWithCountsSummary.map((ingredient, i) => (
           <IngredientsFilterButton
             {...ingredient}
+            key={`ingredients-filter-summary-${i}`}
             link={`/ingredient/${ingredient.name.toLowerCase()}`}
             activeIngredient={activeIngredient}
           />
         ))}
       </AccordionSummary>
       <AccordionDetails>
-        {ingredientsWithCountsDetails.map(ingredient => (
+        {ingredientsWithCountsDetails.map((ingredient, i) => (
           <IngredientsFilterButton
             {...ingredient}
+            key={`ingredients-filter-details-${i}`}
             link={`/ingredient/${ingredient.name.toLowerCase()}`}
             activeIngredient={activeIngredient}
           />

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import ImageListItem, { imageListItemClasses } from '@mui/material/ImageListItem';
-import RecipeListItem from './RecipeListItem';
+import RecipeGridItem from './RecipeGridItem';
 
 export default function RecipeGrid({ recipes }) {
   return (
@@ -21,7 +21,7 @@ export default function RecipeGrid({ recipes }) {
     >
       {recipes.map(recipe => (
         <ImageListItem key={recipe.id}>
-          <RecipeListItem recipe={recipe} />
+          <RecipeGridItem recipe={recipe} />
         </ImageListItem>
       ))}
     </Box>

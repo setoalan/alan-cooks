@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { css } from '@emotion/css';
 
-export default function RecipeListItem({ recipe }) {
+export default function RecipeGridItem({ recipe }) {
   const dateOptions = { year: 'numeric', month: 'short', day: '2-digit' };
   const date = new Date(recipe.date).toLocaleDateString(undefined, dateOptions);
   const image = getImage(recipe.image.asset);
@@ -21,6 +21,8 @@ export default function RecipeListItem({ recipe }) {
             transform: scale(1.5);
           }
         `}
+        width={200}
+        height={200}
       />
       <ImageListItemBar
         title={recipe.name}
