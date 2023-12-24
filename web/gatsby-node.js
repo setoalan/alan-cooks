@@ -55,8 +55,35 @@ async function createIngredientPages({ graphql, actions }) {
   });
 }
 
+async function turnRecipesIntoPages({ graphql, actions }) {
+  const homePage = path.resolve('./src/pages/index.js');
+
+  const { data } = await graphql(`
+    query {
+      recipes: allSanityRecipe {
+        totalCount
+      }
+    }
+  `);
+
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
+  const pageCount = Math.ceil(data.recipes.totalCount / pageSize);
+
+  Array.from({ length: pageCount }).forEach((_, i) => {
+    actions.createPage({
+      path: `/page/${i + 1}`,
+      component: homePage,
+      context: {
+        skip: i * pageSize,
+        currentPage: i + 1,
+        pageSize,
+      },
+    });
+  });
+}
+
 async function createPages(params) {
-  await Promise.all([createRecipePages(params), createIngredientPages(params)]);
+  await Promise.all([createRecipePages(params), createIngredientPages(params), turnRecipesIntoPages(params)]);
 }
 
 module.exports = {

@@ -23,9 +23,11 @@ export default function HomePage({ data, pageContext, location }) {
 }
 
 export const query = graphql`
-  query ($ingredientRegex: String) {
+  query ($ingredientRegex: String, $pageSize: Int = 30, $skip: Int = 0) {
     recipes: allSanityRecipe(
       filter: { ingredients: { elemMatch: { name: { regex: $ingredientRegex } } } }
+      limit: $pageSize
+      skip: $skip
       sort: { date: DESC }
     ) {
       nodes {
