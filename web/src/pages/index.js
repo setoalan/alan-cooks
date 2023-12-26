@@ -2,12 +2,15 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import RecipeGrid from '../components/RecipeGrid';
 import IngredientsFilter from '../components/IngredientsFilter';
+import Pagination from '../components/Pagination';
 import RatingsFilter, { filterRatingsOptions } from '../components/RatingsFilter';
 
-export default function HomePage({ data, pageContext, location }) {
-  const activeIngredient = pageContext.ingredient;
+export default function HomePage({ data, pageContext }) {
+  const { ingredient, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
+  const activeIngredient = ingredient;
   const [filterRating, setRatingsFilter] = React.useState(filterRatingsOptions[0].value);
-  let recipes = data.recipes.nodes;
+  const { totalCount } = data.recipes;
+  let { nodes: recipes } = data.recipes;
 
   if (filterRating !== filterRatingsOptions[0].value) {
     recipes = recipes.filter(({ rating }) => rating === filterRating);
@@ -18,6 +21,7 @@ export default function HomePage({ data, pageContext, location }) {
       <RatingsFilter filterRating={filterRating} setRatingsFilter={setRatingsFilter} />
       <IngredientsFilter activeIngredient={activeIngredient} />
       <RecipeGrid recipes={recipes} />
+      <Pagination pageSize={pageSize} totalCount={totalCount} currentPage={currentPage} skip={skip} base="page" />
     </>
   );
 }
@@ -30,6 +34,7 @@ export const query = graphql`
       skip: $skip
       sort: { date: DESC }
     ) {
+      totalCount
       nodes {
         id
         name

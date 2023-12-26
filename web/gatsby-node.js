@@ -1,8 +1,9 @@
 const path = require('path');
 
-async function createRecipePages({ graphql, actions }) {
-  const recipeTemplate = path.resolve('./src/templates/Recipe.js');
+const homePage = path.resolve('./src/pages/index.js');
+const recipeTemplate = path.resolve('./src/templates/Recipe.js');
 
+async function createRecipePages({ graphql, actions }) {
   const { data } = await graphql(`
     query {
       recipes: allSanityRecipe {
@@ -30,8 +31,6 @@ async function createRecipePages({ graphql, actions }) {
 }
 
 async function createIngredientPages({ graphql, actions }) {
-  const ingredientTemplate = path.resolve('./src/pages/index.js');
-
   const { data } = await graphql(`
     query {
       ingredients: allSanityIngredient {
@@ -46,7 +45,7 @@ async function createIngredientPages({ graphql, actions }) {
   data.ingredients.nodes.forEach(({ name }) => {
     actions.createPage({
       path: `ingredient/${name.toLowerCase()}`,
-      component: ingredientTemplate,
+      component: homePage,
       context: {
         ingredient: name,
         ingredientRegex: `/${name.replace('+', '\\+')}/i`,
@@ -56,8 +55,6 @@ async function createIngredientPages({ graphql, actions }) {
 }
 
 async function turnRecipesIntoPages({ graphql, actions }) {
-  const homePage = path.resolve('./src/pages/index.js');
-
   const { data } = await graphql(`
     query {
       recipes: allSanityRecipe {
@@ -70,13 +67,15 @@ async function turnRecipesIntoPages({ graphql, actions }) {
   const pageCount = Math.ceil(data.recipes.totalCount / pageSize);
 
   Array.from({ length: pageCount }).forEach((_, i) => {
+    if (i === 0) return;
+
     actions.createPage({
       path: `/page/${i + 1}`,
       component: homePage,
       context: {
-        skip: i * pageSize,
-        currentPage: i + 1,
         pageSize,
+        currentPage: i + 1,
+        skip: i * pageSize,
       },
     });
   });
