@@ -40,12 +40,7 @@ export default function RecipePage({ data }) {
         />
       </Grid2>
       <Grid2 sm={6} alignSelf="center" paddingLeft={{ xs: 0, sm: 3 }} textAlign="center">
-        {favorite && (
-          <Box>
-            <FavoriteIcon alignSelf="center" fontSize="large" />
-          </Box>
-        )}
-
+        {favorite && <FavoriteIcon fontSize="large" />}
         <Typography variant="h2" fontSize={{ xs: '2rem', sm: '3rem', md: '4rem' }}>
           {name}
         </Typography>

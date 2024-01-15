@@ -8,7 +8,6 @@ async function createRecipePages({ graphql, actions }) {
     query {
       recipes: allSanityRecipe {
         nodes {
-          name
           slug {
             current
           }
@@ -17,8 +16,8 @@ async function createRecipePages({ graphql, actions }) {
     }
   `);
 
-  data.recipes.nodes.forEach(recipe => {
-    const { current } = recipe.slug;
+  data.recipes.nodes.forEach(({ slug }) => {
+    const { current } = slug;
 
     actions.createPage({
       path: `recipe/${current}`,
@@ -35,7 +34,6 @@ async function createIngredientPages({ graphql, actions }) {
     query {
       ingredients: allSanityIngredient {
         nodes {
-          id
           name
         }
       }
