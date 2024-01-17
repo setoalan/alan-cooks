@@ -5,23 +5,31 @@ import IngredientsFilter from '../components/IngredientsFilter';
 import Pagination from '../components/Pagination';
 import RatingsFilter, { filterRatingsOptions } from '../components/RatingsFilter';
 
+const { useState } = React;
+const { 0: DEFAULT_FILTER } = filterRatingsOptions;
+
 export default function HomePage({ data, pageContext }) {
-  const { ingredient, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
-  const activeIngredient = ingredient;
-  const [filterRating, setRatingsFilter] = React.useState(filterRatingsOptions[0].value);
   const { totalCount } = data.recipes;
+  const { ingredient, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
+  const [filterRating, setRatingsFilter] = useState(DEFAULT_FILTER);
   let { nodes: recipes } = data.recipes;
 
-  if (filterRating !== filterRatingsOptions[0].value) {
+  if (filterRating !== DEFAULT_FILTER) {
     recipes = recipes.filter(({ rating }) => rating === filterRating);
   }
 
   return (
     <>
       <RatingsFilter filterRating={filterRating} setRatingsFilter={setRatingsFilter} />
-      <IngredientsFilter activeIngredient={activeIngredient} />
+      <IngredientsFilter activeIngredient={ingredient} />
       <RecipeGrid recipes={recipes} />
-      <Pagination pageSize={pageSize} totalCount={totalCount} currentPage={currentPage} skip={skip} base="page" />
+      <Pagination
+        totalCount={totalCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        skip={skip}
+        base={ingredient ? `ingredient/${ingredient.toLowerCase()}` : ''}
+      />
     </>
   );
 }

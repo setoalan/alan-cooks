@@ -1,24 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import StarIcon from '@mui/icons-material/Star';
 
-export const filterRatingsOptions = [
-  { label: 'all', value: 'all' },
-  { label: 'five', value: 5 },
-  { label: 'four', value: 4 },
-  { label: 'three', value: 3 },
-  { label: 'two', value: 2 },
-  { label: 'one', value: 1 },
-];
+export const filterRatingsOptions = ['ALL', 5, 4, 3, 2, 1];
 
-export default function RatingsFilter(props) {
-  const { filterRating, setRatingsFilter } = props;
-
+export default function RatingsFilter({ filterRating, setRatingsFilter }) {
   const handleChange = ({ target }) => setRatingsFilter(target.value);
 
   return (
@@ -35,11 +26,11 @@ export default function RatingsFilter(props) {
             sx={{ padding: 1 }}
           >
             {filterRatingsOptions.map((filterRatingOption, i) => (
-              <MenuItem key={`filter-ratings-${i}`} value={filterRatingOption.value}>
-                {filterRatingOption.label === 'all'
-                  ? filterRatingOption.label.toUpperCase()
-                  : [...Array(filterRatingOption.value)].map((_, i) => (
-                      <StarIcon key={`${filterRatingOption.value}-star-${i}`} fontSize="xsmall" />
+              <MenuItem key={`filter-ratings-${i}`} value={filterRatingOption}>
+                {filterRatingOption === 'ALL'
+                  ? filterRatingOption
+                  : [...Array(filterRatingOption)].map((_, i) => (
+                      <StarIcon key={`${filterRatingOption}-star-${i}`} fontSize="xsmall" />
                     ))}
               </MenuItem>
             ))}

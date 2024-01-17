@@ -33,21 +33,29 @@ async function createIngredientPages({ graphql, actions }) {
   const { data } = await graphql(`
     query {
       ingredients: allSanityIngredient {
+        totalCount
         nodes {
           name
         }
       }
     }
   `);
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
+  const pageCount = Math.ceil(data.ingredients.totalCount / pageSize);
 
-  data.ingredients.nodes.forEach(({ name }) => {
-    actions.createPage({
-      path: `ingredient/${name.toLowerCase()}`,
-      component: homePage,
-      context: {
-        ingredient: name,
-        ingredientRegex: `/${name.replace('+', '\\+')}/i`,
-      },
+  Array.from({ length: pageCount }).forEach((_, i) => {
+    data.ingredients.nodes.forEach(({ name }) => {
+      actions.createPage({
+        path: i === 0 ? `ingredient/${name.toLowerCase()}` : `ingredient/${name.toLowerCase()}/page/${i + 1}`,
+        component: homePage,
+        context: {
+          ingredient: name,
+          ingredientRegex: `/${name.replace('+', '\\+')}/i`,
+          pageSize,
+          currentPage: i + 1,
+          skip: i * pageSize,
+        },
+      });
     });
   });
 }

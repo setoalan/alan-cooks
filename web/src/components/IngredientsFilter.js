@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
