@@ -3,18 +3,17 @@ import { graphql } from 'gatsby';
 import RecipeGrid from '../components/RecipeGrid';
 import IngredientsFilter from '../components/IngredientsFilter';
 import Pagination from '../components/Pagination';
-import RatingsFilter, { filterRatingsOptions } from '../components/RatingsFilter';
+import RatingsFilter, { DEFAULT_FILTER_RATING } from '../components/RatingsFilter';
 
 const { useState } = React;
-const { 0: DEFAULT_FILTER } = filterRatingsOptions;
 
 export default function HomePage({ data, pageContext }) {
   const { totalCount } = data.recipes;
   const { ingredient, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
-  const [filterRating, setRatingsFilter] = useState(DEFAULT_FILTER);
+  const [filterRating, setRatingsFilter] = useState(DEFAULT_FILTER_RATING);
   let { nodes: recipes } = data.recipes;
 
-  if (filterRating !== DEFAULT_FILTER) {
+  if (filterRating !== DEFAULT_FILTER_RATING) {
     recipes = recipes.filter(({ rating }) => rating === filterRating);
   }
 
