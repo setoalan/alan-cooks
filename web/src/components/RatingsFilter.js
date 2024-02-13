@@ -2,7 +2,6 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
-import StarIcon from '@mui/icons-material/Star';
 
 const { Fragment } = React;
 
