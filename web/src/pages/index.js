@@ -27,7 +27,7 @@ export default function HomePage({ data, pageContext }) {
         pageSize={pageSize}
         currentPage={currentPage}
         skip={skip}
-        base={ingredient ? `ingredient/${ingredient.toLowerCase()}` : ''}
+        base={ingredient ? `ingredient/${ingredient.toLowerCase()}/` : ''}
       />
     </>
   );

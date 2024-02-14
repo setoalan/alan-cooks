@@ -29,38 +29,7 @@ async function createRecipePages({ graphql, actions }) {
   });
 }
 
-async function createIngredientPages({ graphql, actions }) {
-  const { data } = await graphql(`
-    query {
-      ingredients: allSanityIngredient {
-        totalCount
-        nodes {
-          name
-        }
-      }
-    }
-  `);
-  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
-  const pageCount = Math.ceil(data.ingredients.totalCount / pageSize);
-
-  Array.from({ length: pageCount }).forEach((_, i) => {
-    data.ingredients.nodes.forEach(({ name }) => {
-      actions.createPage({
-        path: i === 0 ? `ingredient/${name.toLowerCase()}` : `ingredient/${name.toLowerCase()}/page/${i + 1}`,
-        component: homePage,
-        context: {
-          ingredient: name,
-          ingredientRegex: `/${name.replace('+', '\\+')}/i`,
-          pageSize,
-          currentPage: i + 1,
-          skip: i * pageSize,
-        },
-      });
-    });
-  });
-}
-
-async function turnRecipesIntoPages({ graphql, actions }) {
+async function createRecipeGridPages({ graphql, actions }) {
   const { data } = await graphql(`
     query {
       recipes: allSanityRecipe {
@@ -87,8 +56,69 @@ async function turnRecipesIntoPages({ graphql, actions }) {
   });
 }
 
+async function createIngredientFilterGridPages({ graphql, actions }) {
+  const { data: recipeData } = await graphql(`
+    query {
+      recipes: allSanityRecipe {
+        totalCount
+        nodes {
+          ingredients {
+            id
+            name
+          }
+        }
+      }
+    }
+  `);
+
+  const ingredientCounts = recipeData.recipes.nodes
+    .map(({ ingredients }) => ingredients)
+    .flat()
+    .reduce((acc, { id, name, icon }) => {
+      const existingIngredient = acc[id];
+
+      if (existingIngredient) {
+        existingIngredient.count += 1;
+      } else {
+        acc[id] = {
+          id,
+          name,
+          count: 1,
+        };
+      }
+
+      return acc;
+    }, {});
+
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
+
+  Object.values(ingredientCounts).forEach(({ name, count }) => {
+    const pageCount = Math.ceil(count / pageSize);
+
+    Array.from({ length: pageCount }).forEach((_, i) => {
+      const basePath = `ingredient/${name.toLowerCase()}`;
+
+      actions.createPage({
+        path: i === 0 ? basePath : `${basePath}/page/${i + 1}`,
+        component: homePage,
+        context: {
+          ingredient: name,
+          ingredientRegex: `/${name.replace('+', '\\+')}/i`,
+          pageSize,
+          currentPage: i + 1,
+          skip: i * pageSize,
+        },
+      });
+    });
+  });
+}
+
 async function createPages(params) {
-  await Promise.all([createRecipePages(params), createIngredientPages(params), turnRecipesIntoPages(params)]);
+  await Promise.all([
+    createRecipePages(params),
+    createRecipeGridPages(params),
+    createIngredientFilterGridPages(params),
+  ]);
 }
 
 module.exports = {
