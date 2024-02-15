@@ -9,17 +9,19 @@ const { useState } = React;
 
 export default function HomePage({ data, pageContext }) {
   const { totalCount } = data.recipes;
-  const { ingredient, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
-  const [filterRating, setRatingsFilter] = useState(DEFAULT_FILTER_RATING);
+  const { ingredient, rating, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
   let { nodes: recipes } = data.recipes;
 
-  if (filterRating !== DEFAULT_FILTER_RATING) {
-    recipes = recipes.filter(({ rating }) => rating === filterRating);
+  let paginationBase = '/';
+  if (ingredient) {
+    paginationBase = `ingredient/${ingredient.toLowerCase()}/`;
+  } else if (rating) {
+    paginationBase = `rating/${rating}/`;
   }
 
   return (
     <>
-      <RatingsFilter filterRating={filterRating} setRatingsFilter={setRatingsFilter} />
+      <RatingsFilter activeRating={rating ?? DEFAULT_FILTER_RATING} />
       <IngredientsFilter activeIngredient={ingredient} />
       <RecipeGrid recipes={recipes} />
       <Pagination
@@ -27,16 +29,16 @@ export default function HomePage({ data, pageContext }) {
         pageSize={pageSize}
         currentPage={currentPage}
         skip={skip}
-        base={ingredient ? `ingredient/${ingredient.toLowerCase()}/` : ''}
+        base={paginationBase}
       />
     </>
   );
 }
 
 export const query = graphql`
-  query ($ingredientRegex: String, $pageSize: Int = 30, $skip: Int = 0) {
+  query ($ingredientRegex: String, $rating: Float, $pageSize: Int = 30, $skip: Int = 0) {
     recipes: allSanityRecipe(
-      filter: { ingredients: { elemMatch: { name: { regex: $ingredientRegex } } } }
+      filter: { ingredients: { elemMatch: { name: { regex: $ingredientRegex } } }, rating: { eq: $rating } }
       limit: $pageSize
       skip: $skip
       sort: { date: DESC }

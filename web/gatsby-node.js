@@ -113,11 +113,61 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
   });
 }
 
+async function createRatingFilterGridPages({ graphql, actions }) {
+  const { data: recipeData } = await graphql(`
+    query {
+      recipes: allSanityRecipe {
+        nodes {
+          rating
+        }
+      }
+    }
+  `);
+
+  const ratingCounts = recipeData.recipes.nodes
+    .map(({ rating }) => rating)
+    .flat()
+    .reduce((acc, value) => {
+      const existingRating = acc[value];
+
+      if (existingRating) {
+        acc[value]++;
+      } else {
+        acc[value] = 1;
+      }
+
+      return acc;
+    }, {});
+
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
+
+  Object.values(ratingCounts).forEach((value, i) => {
+    const pageCount = Math.ceil(value / pageSize);
+    const ratingValue = i + 1;
+
+    Array.from({ length: pageCount }).forEach((_, j) => {
+      const basePath = `rating/${ratingValue}`;
+
+      actions.createPage({
+        path: j === 0 ? basePath : `${basePath}/page/${j + 1}`,
+        component: homePage,
+        context: {
+          rating: ratingValue,
+          pageSize,
+          currentPage: j + 1,
+          skip: j * pageSize,
+        },
+      });
+    });
+  });
+}
+
 async function createPages(params) {
   await Promise.all([
     createRecipePages(params),
     createRecipeGridPages(params),
     createIngredientFilterGridPages(params),
+    createRatingFilterGridPages(params),
   ]);
 }
 
