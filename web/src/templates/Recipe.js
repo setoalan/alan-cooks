@@ -24,6 +24,7 @@ export default function RecipePage({ data }) {
     minute: '2-digit',
   });
   const imageData = getImage(image.asset);
+  const isVegetarian = () => ingredients.every(({ vegetarian }) => vegetarian);
 
   return (
     <Grid2 container>
@@ -40,7 +41,12 @@ export default function RecipePage({ data }) {
         />
       </Grid2>
       <Grid2 sm={6} alignSelf="center" paddingLeft={{ xs: 0, sm: 3 }} textAlign="center">
-        {favorite && <FavoriteIcon fontSize="large" />}
+        <Box sx={{ height: '4rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+          {favorite && <FavoriteIcon sx={{ height: '100%', width: 'unset', color: '#ffc107' }} />}
+          {isVegetarian() && (
+            <img src="https://img.icons8.com/color/56/null/vegetarian-mark.png" alt="vegetarian" height="100%" />
+          )}
+        </Box>
         <Typography variant="h2" fontSize={{ xs: '2rem', sm: '3rem', md: '4rem' }}>
           {name}
         </Typography>
