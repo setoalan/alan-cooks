@@ -5,7 +5,7 @@ import PaginationMui from '@mui/material/Pagination';
 export default function Pagination({ totalCount, pageSize, currentPage, skip, base }) {
   const totalPages = Math.ceil(totalCount / pageSize);
 
-  const handleChange = (_, value) => navigate(value === 1 ? `/${base}` : `/${base}page/${value}`);
+  const handleChange = (_, value) => navigate(value === 1 ? `${base}/` : `${base}/page/${value}`);
 
   return (
     <PaginationMui

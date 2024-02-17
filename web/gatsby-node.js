@@ -60,7 +60,6 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
   const { data: recipeData } = await graphql(`
     query {
       recipes: allSanityRecipe {
-        totalCount
         nodes {
           ingredients {
             id

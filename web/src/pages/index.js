@@ -1,22 +1,21 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
-import RecipeGrid from '../components/RecipeGrid';
 import IngredientsFilter from '../components/IngredientsFilter';
 import Pagination from '../components/Pagination';
 import RatingsFilter, { DEFAULT_FILTER_RATING } from '../components/RatingsFilter';
+import RecipeGrid from '../components/RecipeGrid';
 
 const { useState } = React;
 
 export default function HomePage({ data, pageContext }) {
-  const { totalCount } = data.recipes;
+  const { totalCount, nodes: recipes } = data.recipes;
   const { ingredient, rating, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
-  let { nodes: recipes } = data.recipes;
 
-  let paginationBase = '/';
+  let paginationBase = '';
   if (ingredient) {
-    paginationBase = `ingredient/${ingredient.toLowerCase()}/`;
+    paginationBase = `/ingredient/${ingredient}`;
   } else if (rating) {
-    paginationBase = `rating/${rating}/`;
+    paginationBase = `/rating/${rating}`;
   }
 
   return (
