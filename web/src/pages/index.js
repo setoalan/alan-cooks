@@ -9,11 +9,18 @@ const { useState } = React;
 
 export default function HomePage({ data, pageContext }) {
   const { totalCount, nodes: recipes } = data.recipes;
-  const { ingredient, rating, pageSize = process.env.GATSBY_PAGE_SIZE, currentPage, skip } = pageContext;
+  const {
+    ingredient,
+    ingredientSlug,
+    rating,
+    pageSize = process.env.GATSBY_PAGE_SIZE,
+    currentPage,
+    skip,
+  } = pageContext;
 
   let paginationBase = '';
   if (ingredient) {
-    paginationBase = `/ingredient/${ingredient}`;
+    paginationBase = `/${ingredientSlug}`;
   } else if (rating) {
     paginationBase = `/rating/${rating}`;
   }

@@ -64,6 +64,9 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
           ingredients {
             id
             name
+            slug {
+              current
+            }
           }
         }
       }
@@ -73,15 +76,15 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
   const ingredientCounts = recipeData.recipes.nodes
     .map(({ ingredients }) => ingredients)
     .flat()
-    .reduce((acc, { id, name, icon }) => {
+    .reduce((acc, { id, name, slug, icon }) => {
       const existingIngredient = acc[id];
 
       if (existingIngredient) {
         existingIngredient.count += 1;
       } else {
         acc[id] = {
-          id,
           name,
+          slug,
           count: 1,
         };
       }
@@ -91,11 +94,12 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
 
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
 
-  Object.values(ingredientCounts).forEach(({ name, count }) => {
+  Object.values(ingredientCounts).forEach(({ name, slug, count }) => {
     const pageCount = Math.ceil(count / pageSize);
 
     Array.from({ length: pageCount }).forEach((_, i) => {
-      const basePath = `ingredient/${name.toLowerCase()}`;
+      const { current } = slug;
+      const basePath = `ingredient/${current}`;
 
       actions.createPage({
         path: i === 0 ? basePath : `${basePath}/page/${i + 1}`,
@@ -103,6 +107,7 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
         context: {
           ingredient: name,
           ingredientRegex: `/${name.replace('+', '\\+')}/i`,
+          ingredientSlug: basePath,
           pageSize,
           currentPage: i + 1,
           skip: i * pageSize,

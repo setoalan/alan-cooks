@@ -10,7 +10,7 @@ function getIngredientsWithCounts(recipes) {
   const ingredientCounts = recipes
     .map(({ ingredients }) => ingredients)
     .flat()
-    .reduce((acc, { id, name, icon }) => {
+    .reduce((acc, { id, name, slug, icon }) => {
       const existingIngredient = acc[id];
 
       if (existingIngredient) {
@@ -19,6 +19,7 @@ function getIngredientsWithCounts(recipes) {
         acc[id] = {
           id,
           name,
+          slug,
           icon,
           count: 1,
         };
@@ -38,6 +39,9 @@ export default function IngredientsFilter({ activeIngredient }) {
           ingredients {
             id
             name
+            slug {
+              current
+            }
             icon
           }
         }
@@ -64,7 +68,6 @@ export default function IngredientsFilter({ activeIngredient }) {
           <IngredientsFilterButton
             {...ingredient}
             key={`ingredients-filter-summary-${i}`}
-            link={`/ingredient/${ingredient.name.toLowerCase()}`}
             activeIngredient={activeIngredient}
           />
         ))}
@@ -74,7 +77,6 @@ export default function IngredientsFilter({ activeIngredient }) {
           <IngredientsFilterButton
             {...ingredient}
             key={`ingredients-filter-details-${i}`}
-            link={`/ingredient/${ingredient.name.toLowerCase()}`}
             activeIngredient={activeIngredient}
           />
         ))}
