@@ -4,6 +4,7 @@ import IngredientsFilter from '../components/IngredientsFilter';
 import Pagination from '../components/Pagination';
 import RatingsFilter, { DEFAULT_FILTER_RATING } from '../components/RatingsFilter';
 import RecipeGrid from '../components/RecipeGrid';
+import SEO from '../components/SEO';
 
 const { useState } = React;
 
@@ -18,15 +19,19 @@ export default function HomePage({ data, pageContext }) {
     skip,
   } = pageContext;
 
+  let headerTitle = '';
   let paginationBase = '';
   if (ingredient) {
+    headerTitle = ingredient;
     paginationBase = `/${ingredientSlug}`;
   } else if (rating) {
+    headerTitle = rating;
     paginationBase = `/rating/${rating}`;
   }
 
   return (
     <>
+      <SEO title={headerTitle} />
       <RatingsFilter activeRating={rating ?? DEFAULT_FILTER_RATING} />
       <IngredientsFilter activeIngredient={ingredient} />
       <RecipeGrid recipes={recipes} />

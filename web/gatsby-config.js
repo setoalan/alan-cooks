@@ -6,7 +6,7 @@ module.exports = {
     siteUrl: 'https://www.alancooks.recipes',
     description: 'Alan cooks recipes!',
   },
-  trailingSlash: `always`,
+  trailingSlash: 'always',
   plugins: [
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
