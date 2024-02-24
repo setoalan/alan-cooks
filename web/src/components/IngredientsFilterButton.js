@@ -4,13 +4,14 @@ import Button from '@mui/material/Button';
 
 export default function IngredientsFilterButton({ id, name, icon, slug, count, activeIngredient }) {
   return (
-    <Link key={id} to={slug ? `/ingredient/${slug.current}` : '/'}>
-      <Button
-        startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} />}
-        variant={activeIngredient === name ? 'contained' : 'text'}
-      >
-        {name || 'ALL'} {count}
-      </Button>
-    </Link>
+    <Button
+      key={id}
+      component={Link}
+      to={slug ? `/ingredient/${slug.current}` : '/'}
+      startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} />}
+      variant={activeIngredient === name ? 'contained' : 'text'}
+    >
+      {name || 'ALL'} {count}
+    </Button>
   );
 }

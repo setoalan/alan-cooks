@@ -13,6 +13,7 @@ export default function HomePage({ data, pageContext }) {
   const {
     ingredient,
     ingredientSlug,
+    favorite,
     rating,
     pageSize = process.env.GATSBY_PAGE_SIZE,
     currentPage,
@@ -21,12 +22,16 @@ export default function HomePage({ data, pageContext }) {
 
   let headerTitle = '';
   let paginationBase = '';
-  if (ingredient) {
-    headerTitle = ingredient;
-    paginationBase = `/${ingredientSlug}`;
+
+  if (favorite) {
+    headerTitle = 'Favorites';
+    paginationBase = '/favorites';
   } else if (rating) {
     headerTitle = rating;
     paginationBase = `/rating/${rating}`;
+  } else if (ingredient) {
+    headerTitle = ingredient;
+    paginationBase = `/${ingredientSlug}`;
   }
 
   return (
@@ -47,9 +52,13 @@ export default function HomePage({ data, pageContext }) {
 }
 
 export const query = graphql`
-  query ($ingredientRegex: String, $rating: Float, $pageSize: Int = 30, $skip: Int = 0) {
+  query ($favorite: Boolean, $rating: Float, $ingredientRegex: String, $pageSize: Int = 30, $skip: Int = 0) {
     recipes: allSanityRecipe(
-      filter: { ingredients: { elemMatch: { name: { regex: $ingredientRegex } } }, rating: { eq: $rating } }
+      filter: {
+        favorite: { eq: $favorite }
+        rating: { eq: $rating }
+        ingredients: { elemMatch: { name: { regex: $ingredientRegex } } }
+      }
       limit: $pageSize
       skip: $skip
       sort: { date: DESC }

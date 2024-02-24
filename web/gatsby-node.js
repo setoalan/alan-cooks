@@ -123,10 +123,13 @@ async function createRatingFilterGridPages({ graphql, actions }) {
       recipes: allSanityRecipe {
         nodes {
           rating
+          favorite
         }
       }
     }
   `);
+
+  const favoritesCount = recipeData.recipes.nodes.filter(({ favorite }) => favorite).length;
 
   const ratingCounts = recipeData.recipes.nodes
     .map(({ rating }) => rating)
@@ -145,11 +148,28 @@ async function createRatingFilterGridPages({ graphql, actions }) {
 
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
 
+  const favoritesPageCount = Math.ceil(favoritesCount / pageSize);
+
+  Array.from({ length: favoritesPageCount }).forEach((_, i) => {
+    const basePath = 'favorites';
+
+    actions.createPage({
+      path: i === 0 ? basePath : `${basePath}/page/${i + 1}`,
+      component: homePage,
+      context: {
+        favorite: true,
+        pageSize,
+        currentPage: i + 1,
+        skip: i * pageSize,
+      },
+    });
+  });
+
   Object.values(ratingCounts).forEach((value, i) => {
-    const pageCount = Math.ceil(value / pageSize);
+    const ratingPageCount = Math.ceil(value / pageSize);
     const ratingValue = i + 1;
 
-    Array.from({ length: pageCount }).forEach((_, j) => {
+    Array.from({ length: ratingPageCount }).forEach((_, j) => {
       const basePath = `rating/${ratingValue}`;
 
       actions.createPage({
