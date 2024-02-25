@@ -2,9 +2,10 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import IngredientsFilter from '../components/IngredientsFilter';
 import Pagination from '../components/Pagination';
-import RatingsFilter, { DEFAULT_FILTER_RATING } from '../components/RatingsFilter';
+import RatingsFilter from '../components/RatingsFilter';
 import RecipeGrid from '../components/RecipeGrid';
 import SEO from '../components/SEO';
+import { ratingCardinals, FILTER_RATING_DEFAULT } from '../constants';
 
 const { useState } = React;
 
@@ -28,7 +29,7 @@ export default function HomePage({ data, pageContext }) {
     paginationBase = '/favorites';
   } else if (rating) {
     headerTitle = rating;
-    paginationBase = `/rating/${rating}`;
+    paginationBase = `/rating/${ratingCardinals[rating]}`;
   } else if (ingredient) {
     headerTitle = ingredient;
     paginationBase = `/${ingredientSlug}`;
@@ -37,7 +38,7 @@ export default function HomePage({ data, pageContext }) {
   return (
     <>
       <SEO title={headerTitle} />
-      <RatingsFilter activeRating={rating ?? DEFAULT_FILTER_RATING} />
+      <RatingsFilter activeRating={rating ?? FILTER_RATING_DEFAULT} />
       <IngredientsFilter activeIngredient={ingredient} />
       <RecipeGrid recipes={recipes} />
       <Pagination
