@@ -7,8 +7,6 @@ import RecipeGrid from '../components/RecipeGrid';
 import SEO from '../components/SEO';
 import { ratingCardinals, FILTER_RATING_DEFAULT } from '../constants';
 
-const { useState } = React;
-
 export default function HomePage({ data, pageContext }) {
   const { totalCount, nodes: recipes } = data.recipes;
   const {
