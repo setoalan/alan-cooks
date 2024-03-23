@@ -12,6 +12,8 @@ import { useTheme } from '@mui/material/styles';
 export default function Nav() {
   const theme = useTheme();
 
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+
   return (
     <AppBar
       position="sticky"
@@ -26,16 +28,18 @@ export default function Nav() {
             </Typography>
           </Box>
         </Link>
-        <Button
-          component={Link}
-          to="/favorites"
-          size="large"
-          variant={location && location.pathname.includes('favorites') ? 'contained' : 'outlined'}
-          startIcon={<Star sx={{ color: '#ffc107' }} />}
-          endIcon={<Star sx={{ color: '#ffc107' }} />}
-        >
-          <Typography>FAVORITES</Typography>
-        </Button>
+        {!pathname.includes('recipe') ? (
+          <Button
+            component={Link}
+            to="/favorites"
+            size="large"
+            variant={pathname.includes('favorites') ? 'contained' : 'outlined'}
+            startIcon={<Star sx={{ color: '#ffc107' }} />}
+            endIcon={<Star sx={{ color: '#ffc107' }} />}
+          >
+            <Typography>FAVORITES</Typography>
+          </Button>
+        ) : null}
       </Toolbar>
     </AppBar>
   );
