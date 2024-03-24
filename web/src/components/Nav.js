@@ -15,29 +15,26 @@ export default function Nav() {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
   return (
-    <AppBar
-      position="sticky"
-      sx={{ paddingTop: 2, backgroundColor: theme.palette.background.default, boxShadow: 'none' }}
-    >
+    <AppBar position="sticky" sx={{ pt: 2, bgcolor: theme.palette.background.default, boxShadow: 'none' }}>
       <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <Box display="flex">
-            <FoodBank sx={{ marginRight: 1, fontSize: { xs: '3rem', sm: '5rem' }, fill: theme.palette.common.black }} />
-            <Typography variant="h1" fontSize={{ xs: '3rem', sm: '5rem' }} color={`${theme.palette.text.primary}`}>
-              Alan Cooks
-            </Typography>
-          </Box>
-        </Link>
-        {!pathname.includes('recipe') ? (
+        <Box component={Link} to="/" display="flex" sx={{ textDecoration: 'none' }}>
+          <FoodBank
+            sx={{ fontSize: { xs: '2rem', sm: '3rem', md: '5rem' }, mr: 1, fill: theme.palette.common.black }}
+          />
+          <Typography variant="h1" fontSize={{ xs: '2rem', sm: '3rem', md: '5rem' }} color={theme.palette.text.primary}>
+            Alan Cooks
+          </Typography>
+        </Box>
+        {!pathname.includes('/recipe') ? (
           <Button
             component={Link}
             to="/favorites"
-            size="large"
-            variant={pathname.includes('favorites') ? 'contained' : 'outlined'}
+            size="small"
+            variant={pathname.includes('/favorites') ? 'contained' : 'outlined'}
             startIcon={<Star sx={{ color: '#ffc107' }} />}
             endIcon={<Star sx={{ color: '#ffc107' }} />}
           >
-            <Typography>FAVORITES</Typography>
+            <Typography>favorites</Typography>
           </Button>
         ) : null}
       </Toolbar>
