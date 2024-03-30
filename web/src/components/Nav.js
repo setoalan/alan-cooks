@@ -15,13 +15,18 @@ export default function Nav() {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
   return (
-    <AppBar position="sticky" sx={{ pt: 2, bgcolor: theme.palette.background.default, boxShadow: 'none' }}>
+    <AppBar position="sticky" sx={{ bgcolor: theme.palette.background.default, boxShadow: 'none' }}>
       <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
-        <Box component={Link} to="/" display="flex" sx={{ textDecoration: 'none' }}>
+        <Box component={Link} to="/" display="flex" alignItems="center" sx={{ textDecoration: 'none' }}>
           <FoodBank
             sx={{ fontSize: { xs: '2rem', sm: '3rem', md: '5rem' }, mr: 1, fill: theme.palette.common.black }}
           />
-          <Typography variant="h1" fontSize={{ xs: '2rem', sm: '3rem', md: '5rem' }} color={theme.palette.text.primary}>
+          <Typography
+            variant="h1"
+            fontSize={{ xs: '2rem', sm: '3rem', md: '5rem' }}
+            color={theme.palette.text.primary}
+            sx={{ mt: 1.5 }}
+          >
             Alan Cooks
           </Typography>
         </Box>
