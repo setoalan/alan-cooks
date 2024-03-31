@@ -25,7 +25,7 @@ export default function Nav() {
             variant="h1"
             fontSize={{ xs: '2rem', sm: '3rem', md: '5rem' }}
             color={theme.palette.text.primary}
-            sx={{ mt: 1.5 }}
+            sx={{ mt: { xs: 1, sm: 1.25, md: 1.5 } }}
           >
             Alan Cooks
           </Typography>
@@ -37,9 +37,8 @@ export default function Nav() {
             size="small"
             variant={pathname.includes('/favorites') ? 'contained' : 'outlined'}
             startIcon={<Star sx={{ color: '#ffc107' }} />}
-            endIcon={<Star sx={{ color: '#ffc107' }} />}
           >
-            <Typography>favorites</Typography>
+            favorites
           </Button>
         ) : null}
       </Toolbar>

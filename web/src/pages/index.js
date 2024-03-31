@@ -12,12 +12,15 @@ export default function HomePage({ data, pageContext }) {
   const {
     ingredient,
     ingredientSlug,
+    ingredientIcon,
     favorite,
     rating,
     pageSize = process.env.GATSBY_PAGE_SIZE,
     currentPage,
     skip,
   } = pageContext;
+
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
   let headerTitle = '';
   let paginationBase = '';
@@ -36,8 +39,12 @@ export default function HomePage({ data, pageContext }) {
   return (
     <>
       <SEO title={headerTitle} />
-      <RatingsFilter activeRating={rating ?? FILTER_RATING_DEFAULT} />
-      <IngredientsFilter activeIngredient={ingredient} />
+      {!pathname.includes('/favorites') ? (
+        <>
+          <RatingsFilter activeRating={rating ?? FILTER_RATING_DEFAULT} />{' '}
+          <IngredientsFilter activeIngredient={ingredient} activeIngredientIcon={ingredientIcon} />
+        </>
+      ) : null}
       <RecipeGrid recipes={recipes} />
       <Pagination
         totalCount={totalCount}

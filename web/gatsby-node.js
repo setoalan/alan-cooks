@@ -67,6 +67,7 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
             slug {
               current
             }
+            icon
           }
         }
       }
@@ -86,6 +87,7 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
           name,
           slug,
           count: 1,
+          icon,
         };
       }
 
@@ -94,7 +96,7 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
 
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
 
-  Object.values(ingredientCounts).forEach(({ name, slug, count }) => {
+  Object.values(ingredientCounts).forEach(({ name, slug, count, icon }) => {
     const pageCount = Math.ceil(count / pageSize);
 
     Array.from({ length: pageCount }).forEach((_, i) => {
@@ -108,6 +110,7 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
           ingredient: name,
           ingredientRegex: `/${name.replace('+', '\\+')}/i`,
           ingredientSlug: basePath,
+          ingredientIcon: icon,
           pageSize,
           currentPage: i + 1,
           skip: i * pageSize,

@@ -9,8 +9,8 @@ const { Fragment } = React;
 
 export default function RatingsFilter({ activeRating }) {
   return (
-    <Paper sx={{ paddingX: 2, paddingY: 1 }}>
-      <ButtonGroup variant="outlined" aria-label="outlined button group" fullWidth>
+    <Paper sx={{ px: { xs: 1, md: 2 }, py: 1 }}>
+      <ButtonGroup variant="outlined" aria-label="Ratings Filter" fullWidth>
         {filterRatingOptions.map((filterRatingOption, i) => (
           <Button
             key={`filter-rating-${i}`}

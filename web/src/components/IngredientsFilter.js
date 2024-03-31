@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IngredientsFilterButton from './IngredientsFilterButton';
 
@@ -31,7 +33,7 @@ function getIngredientsWithCounts(recipes) {
   return Object.values(ingredientCounts).sort((a, b) => b.count - a.count);
 }
 
-export default function IngredientsFilter({ activeIngredient }) {
+export default function IngredientsFilter({ activeIngredient, activeIngredientIcon }) {
   const { recipes } = useStaticQuery(graphql`
     query {
       recipes: allSanityRecipe {
@@ -49,37 +51,48 @@ export default function IngredientsFilter({ activeIngredient }) {
     }
   `);
 
-  const ingredientsWithCounts = getIngredientsWithCounts(recipes.nodes).sort((a, b) => b.name === activeIngredient);
-
-  const ingredientsWithCountsSummary = ingredientsWithCounts.slice(0, 7);
-  const ingredientsWithCountsDetails = ingredientsWithCounts.slice(8, ingredientsWithCounts.length - 1);
+  const ingredientsWithCounts = getIngredientsWithCounts(recipes.nodes);
 
   return (
     <Accordion sx={{ mb: 2 }}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="ingredients-content" id="ingredients-header">
-        <IngredientsFilterButton
-          id="ingredients-all"
-          icon="infinity"
-          count={recipes.nodes.length}
-          link="/"
-          activeIngredient={activeIngredient}
-        />
-        {ingredientsWithCountsSummary.map((ingredient, i) => (
-          <IngredientsFilterButton
-            {...ingredient}
-            key={`ingredients-filter-summary-${i}`}
-            activeIngredient={activeIngredient}
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="ingredients-content"
+        id="ingredients-header"
+        sx={{ px: { xs: 1, md: 2 } }}
+      >
+        <Box sx={{ alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%', ml: '21px' }}>
+          <img
+            src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
+            alt={activeIngredientIcon}
+            loading="lazy"
           />
-        ))}
+          <Typography sx={{ mx: 1 }}>{activeIngredient?.toUpperCase() || 'ALL INGREDIENTS'}</Typography>
+          <img
+            src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
+            alt={activeIngredientIcon}
+            loading="lazy"
+          />
+        </Box>
       </AccordionSummary>
       <AccordionDetails>
-        {ingredientsWithCountsDetails.map((ingredient, i) => (
-          <IngredientsFilterButton
-            {...ingredient}
-            key={`ingredients-filter-details-${i}`}
-            activeIngredient={activeIngredient}
-          />
-        ))}
+        {ingredientsWithCounts
+          .map((ingredient, i) => (
+            <IngredientsFilterButton
+              {...ingredient}
+              key={`ingredients-filter-details-${i}`}
+              activeIngredient={activeIngredient}
+            />
+          ))
+          .concat(
+            <IngredientsFilterButton
+              id="ingredients-all"
+              icon="infinity"
+              count={recipes.nodes.length}
+              link="/"
+              activeIngredient={activeIngredient}
+            />
+          )}
       </AccordionDetails>
     </Accordion>
   );
