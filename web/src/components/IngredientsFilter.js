@@ -54,7 +54,7 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
   const ingredientsWithCounts = getIngredientsWithCounts(recipes.nodes);
 
   return (
-    <Accordion sx={{ mb: 2 }}>
+    <Accordion sx={{ mt: 1, mb: 2 }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="ingredients-content"

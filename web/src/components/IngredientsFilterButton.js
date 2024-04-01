@@ -2,13 +2,14 @@ import * as React from 'react';
 import { Link } from 'gatsby';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 
 export default function IngredientsFilterButton({ id, name, icon, slug, count, activeIngredient }) {
   const theme = useTheme();
 
   return (
-    <Tooltip title={name || 'All Ingredients'} placement="top">
+    <Tooltip title={<Typography>{name || 'All Ingredients'}</Typography>} placement="top">
       <IconButton
         key={id}
         component={Link}

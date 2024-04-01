@@ -11,7 +11,6 @@ export default function Pagination({ totalCount, pageSize, currentPage, skip, ba
     <PaginationMui
       sx={{ display: 'flex', justifyContent: 'center', marginY: 2 }}
       variant="outlined"
-      size="large"
       count={totalPages}
       page={currentPage}
       onChange={handleChange}

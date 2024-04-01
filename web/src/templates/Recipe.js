@@ -4,12 +4,12 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { css } from '@emotion/css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import Typography from '@mui/material/Typography';
 import SEO from '../components/SEO';
 
 export default function RecipePage({ data }) {

@@ -30,7 +30,7 @@ export default function Nav() {
             Alan Cooks
           </Typography>
         </Box>
-        {!pathname.includes('/recipe') ? (
+        {!pathname.includes('/recipe') && !pathname.includes('/favorites') ? (
           <Button
             component={Link}
             to="/favorites"

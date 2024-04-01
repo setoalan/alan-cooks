@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import IngredientsFilter from '../components/IngredientsFilter';
 import Pagination from '../components/Pagination';
 import RatingsFilter from '../components/RatingsFilter';
@@ -39,12 +42,21 @@ export default function HomePage({ data, pageContext }) {
   return (
     <>
       <SEO title={headerTitle} />
-      {!pathname.includes('/favorites') ? (
+      {pathname.includes('/favorites') ? (
+        <Paper
+          square
+          sx={{ alignItems: 'center', mt: 1, mb: 2, height: 48, display: 'flex', justifyContent: 'center' }}
+        >
+          <FavoriteIcon sx={{ color: '#ffc107' }} />
+          <Typography sx={{ mx: 1 }}>ALAN'S FAVORITES</Typography>
+          <FavoriteIcon sx={{ color: '#ffc107' }} />
+        </Paper>
+      ) : (
         <>
           <RatingsFilter activeRating={rating ?? FILTER_RATING_DEFAULT} />{' '}
           <IngredientsFilter activeIngredient={ingredient} activeIngredientIcon={ingredientIcon} />
         </>
-      ) : null}
+      )}
       <RecipeGrid recipes={recipes} />
       <Pagination
         totalCount={totalCount}
