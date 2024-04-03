@@ -4,6 +4,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IngredientsFilterButton from './IngredientsFilterButton';
@@ -61,19 +62,21 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
         id="ingredients-header"
         sx={{ px: { xs: 1, md: 2 } }}
       >
-        <Box sx={{ alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%', ml: '21px' }}>
-          <img
-            src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
-            alt={activeIngredientIcon}
-            loading="lazy"
-          />
-          <Typography sx={{ mx: 1 }}>{activeIngredient?.toUpperCase() || 'ALL INGREDIENTS'}</Typography>
-          <img
-            src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
-            alt={activeIngredientIcon}
-            loading="lazy"
-          />
-        </Box>
+        <Tooltip title={<Typography>Click to select to filter by ingredient</Typography>} placement="top">
+          <Box sx={{ alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%', ml: '21px' }}>
+            <img
+              src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
+              alt={activeIngredientIcon}
+              loading="lazy"
+            />
+            <Typography sx={{ mx: 1 }}>{activeIngredient?.toUpperCase() || 'ALL INGREDIENTS'}</Typography>
+            <img
+              src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
+              alt={activeIngredientIcon}
+              loading="lazy"
+            />
+          </Box>
+        </Tooltip>
       </AccordionSummary>
       <AccordionDetails>
         {ingredientsWithCounts

@@ -5,10 +5,12 @@ import Nav from './Nav';
 
 export default function Layout({ children }) {
   return (
-    <Container maxWidth="lg" sx={{ px: { xs: 1, sm: 2 } }}>
+    <>
       <Nav />
-      <main>{children}</main>
-      <Footer />
-    </Container>
+      <Container maxWidth="lg" sx={{ px: { xs: 2 } }}>
+        <main>{children}</main>
+        <Footer />
+      </Container>
+    </>
   );
 }

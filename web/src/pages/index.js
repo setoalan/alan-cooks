@@ -32,7 +32,7 @@ export default function HomePage({ data, pageContext }) {
     headerTitle = 'Favorites';
     paginationBase = '/favorites';
   } else if (rating) {
-    headerTitle = rating;
+    headerTitle = `${rating} Star${rating !== 1 ? 's' : ''}`;
     paginationBase = `/rating/${ratingCardinals[rating]}`;
   } else if (ingredient) {
     headerTitle = ingredient;

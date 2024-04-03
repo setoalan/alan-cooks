@@ -21,7 +21,7 @@ export default function RecipePage({ data }) {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: '2-digit',
+    hour: 'numeric',
     minute: '2-digit',
   });
   const imageData = getImage(image.asset);
@@ -30,70 +30,87 @@ export default function RecipePage({ data }) {
   return (
     <>
       <SEO title={name} />
-      <Grid2 container>
-        <Grid2 sm={6} marginBottom={{ xs: 3, sm: 0 }}>
-          <GatsbyImage
-            image={imageData}
-            alt={name}
-            imgClassName={css`
-              transition: all 0.75s ease-in-out !important;
-              &:hover {
-                transform: scale(1.5);
-              }
-            `}
-          />
-        </Grid2>
-        <Grid2 sm={6} alignSelf="center" paddingLeft={{ xs: 0, sm: 3 }} textAlign="center">
-          <Box sx={{ height: '4rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-            {favorite && <FavoriteIcon sx={{ height: '100%', width: 'unset', color: '#ffc107' }} />}
-            {isVegetarian && (
-              <img src="https://img.icons8.com/color/56/null/vegetarian-mark.png" alt="vegetarian" height="100%" />
-            )}
+      <Grid2 container justifyContent="center" my={2}>
+        <Grid2 sm={6}>
+          <Box sx={{ mb: { xs: 1, md: 0 } }}>
+            <GatsbyImage
+              image={imageData}
+              alt={name}
+              imgClassName={css`
+                transition: all 0.75s ease-in-out !important;
+                &:hover {
+                  transform: scale(1.5);
+                }
+              `}
+            />
           </Box>
-          <Typography variant="h2" fontSize={{ xs: '2rem', sm: '3rem', md: '4rem' }}>
+        </Grid2>
+        <Grid2 sm={6} alignSelf="center" pl={{ xs: 0, sm: 2 }} textAlign="center">
+          {favorite || isVegetarian ? (
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2rem', gap: 1 }}>
+              {favorite ? <FavoriteIcon sx={{ height: '100%', width: 'unset', color: '#ffc107' }} /> : null}
+              {isVegetarian ? (
+                <img
+                  src="https://img.icons8.com/color/56/null/vegetarian-mark.png"
+                  alt="vegetarian"
+                  height="80%"
+                  loading="lazy"
+                />
+              ) : null}
+            </Box>
+          ) : null}
+          <Typography variant="h1" fontSize={{ xs: '2rem', md: '3rem' }}>
             {name}
           </Typography>
-          <Typography variant="body1">
-            {challenge ? `${challenge.toUpperCase()} • ${formattedDate}` : formattedDate}
-          </Typography>
-          <Box display="flex" justifyContent="center" gap={1}>
-            {url && (
+          <>
+            {[...Array(rating)].map((_, i) => (
+              <StarIcon key={`star-${i}`} fontSize="large" sx={{ color: '#ffc107' }} />
+            ))}
+            {[...Array(5 - rating)].map((_, i) => (
+              <StarBorderIcon key={`star-border-${i}`} fontSize="large" sx={{ color: '#ffc107' }} />
+            ))}
+          </>
+          {challenge ? <Typography> {challenge.toUpperCase()}</Typography> : null}
+          <Typography>{formattedDate}</Typography>
+          <Box display="flex" justifyContent="center" flexWrap="wrap" gap={1} sx={{ whiteSpace: 'nowrap' }}>
+            {ingredients.map(({ id, name, icon }) => (
+              <Button
+                key={id}
+                component={Link}
+                to={`/ingredient/${name.toLowerCase()}`}
+                variant="outlined"
+                size="small"
+                startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} loading="lazy" />}
+              >
+                {name}
+              </Button>
+            ))}
+          </Box>
+          <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
+            {url ? (
               <a href={url} target="_blank" rel="noreferrer">
                 <Button
-                  startIcon={<img src="https://img.icons8.com/color/24/null/cookbook.png" alt="cookbook" />}
+                  size="small"
+                  startIcon={
+                    <img src="https://img.icons8.com/color/24/null/cookbook.png" alt="cookbook" loading="lazy" />
+                  }
                   endIcon={<OpenInNewIcon />}
                 >
                   View Recipe
                 </Button>
               </a>
-            )}
-            {challengeUrl && (
+            ) : null}
+            {challengeUrl ? (
               <a href={challengeUrl} target="_blank" rel="noreferrer">
                 <Button
-                  startIcon={<img src="https://img.icons8.com/color/24/null/reddit.png" alt="reddit" />}
+                  size="small"
+                  startIcon={<img src="https://img.icons8.com/color/24/null/reddit.png" alt="reddit" loading="lazy" />}
                   endIcon={<OpenInNewIcon />}
                 >
                   View Reddit Challenge
                 </Button>
               </a>
-            )}
-          </Box>
-          <Box>
-            {[...Array(rating)].map((_, i) => (
-              <StarIcon key={`star-${i}`} fontSize="large" />
-            ))}
-            {[...Array(5 - rating)].map((_, i) => (
-              <StarBorderIcon key={`star-border-${i}`} fontSize="large" />
-            ))}
-          </Box>
-          <Box display="flex" justifyContent="center" flexWrap="wrap" gap={1} sx={{ whiteSpace: 'nowrap' }}>
-            {ingredients.map(({ id, name, icon }) => (
-              <Link key={id} to={`/ingredient/${name.toLowerCase()}`}>
-                <Button startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} />}>
-                  {name}
-                </Button>
-              </Link>
-            ))}
+            ) : null}
           </Box>
         </Grid2>
       </Grid2>
