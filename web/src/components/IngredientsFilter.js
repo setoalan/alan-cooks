@@ -52,7 +52,17 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
     }
   `);
 
-  const ingredientsWithCounts = getIngredientsWithCounts(recipes.nodes);
+  const ingredientsWithCounts = [
+    ...[
+      {
+        id: 'ingredients-all',
+        name: 'All Ingredients',
+        icon: 'infinity',
+        count: recipes.nodes.length,
+      },
+    ],
+    ...getIngredientsWithCounts(recipes.nodes),
+  ];
 
   return (
     <Accordion sx={{ mt: 1, mb: 2 }}>
@@ -79,24 +89,13 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
         </Tooltip>
       </AccordionSummary>
       <AccordionDetails>
-        {ingredientsWithCounts
-          .map((ingredient, i) => (
-            <IngredientsFilterButton
-              {...ingredient}
-              key={`ingredients-filter-details-${i}`}
-              activeIngredient={activeIngredient}
-            />
-          ))
-          .concat(
-            <IngredientsFilterButton
-              key="ingredients-filter-details-all"
-              id="ingredients-all"
-              icon="infinity"
-              count={recipes.nodes.length}
-              link="/"
-              activeIngredient={activeIngredient}
-            />
-          )}
+        {ingredientsWithCounts.map((ingredient, i) => (
+          <IngredientsFilterButton
+            {...ingredient}
+            key={`ingredients-filter-details-${i}`}
+            activeIngredient={activeIngredient}
+          />
+        ))}
       </AccordionDetails>
     </Accordion>
   );

@@ -73,11 +73,11 @@ export default function RecipePage({ data }) {
           {challenge ? <Typography> {challenge.toUpperCase()}</Typography> : null}
           <Typography>{formattedDate}</Typography>
           <Box display="flex" justifyContent="center" flexWrap="wrap" gap={1} sx={{ whiteSpace: 'nowrap' }}>
-            {ingredients.map(({ id, name, icon }) => (
+            {ingredients.map(({ id, name, slug, icon }) => (
               <Button
                 key={id}
                 component={Link}
-                to={`/ingredient/${name.toLowerCase()}`}
+                to={`/ingredient/${slug.current}`}
                 variant="outlined"
                 size="small"
                 startIcon={<img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} loading="lazy" />}
@@ -137,6 +137,9 @@ export const query = graphql`
       ingredients {
         id
         name
+        slug {
+          current
+        }
         icon
         vegetarian
       }

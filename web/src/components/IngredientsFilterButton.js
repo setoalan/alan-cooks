@@ -9,12 +9,17 @@ export default function IngredientsFilterButton({ id, name, icon, slug, count, a
   const theme = useTheme();
 
   return (
-    <Tooltip title={<Typography>{name || 'All Ingredients'}</Typography>} placement="top">
+    <Tooltip title={<Typography>{`${name} • ${count}`}</Typography>} placement="top">
       <IconButton
         key={id}
         component={Link}
         to={slug ? `/ingredient/${slug.current}` : '/'}
-        sx={{ border: name === activeIngredient ? `1px solid ${theme.palette.primary.main}` : null }}
+        sx={{
+          border:
+            name === activeIngredient || (icon === 'infinity' && activeIngredient === undefined)
+              ? `1px solid ${theme.palette.primary.main}`
+              : null,
+        }}
       >
         <img src={`https://img.icons8.com/color/24/null/${icon}.png`} alt={icon} loading="lazy" />
       </IconButton>
