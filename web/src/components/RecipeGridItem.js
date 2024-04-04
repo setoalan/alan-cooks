@@ -7,7 +7,7 @@ import { css } from '@emotion/css';
 
 export default function RecipeGridItem({ recipe }) {
   const { name, date, image, favorite, ingredients, slug } = recipe;
-  const dateOptions = { year: 'numeric', month: 'short', day: '2-digit' };
+  const dateOptions = { year: '2-digit', month: 'short', day: 'numeric' };
   const recipeDate = new Date(date).toLocaleDateString(undefined, dateOptions);
   const recipeImage = getImage(image.asset);
 

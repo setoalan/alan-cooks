@@ -9,6 +9,12 @@ module.exports = {
   trailingSlash: 'always',
   plugins: [
     'gatsby-plugin-image',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: 'src/images/chef.png',
+      },
+    },
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-source-sanity',

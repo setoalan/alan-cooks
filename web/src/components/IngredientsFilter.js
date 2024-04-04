@@ -89,6 +89,7 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
           ))
           .concat(
             <IngredientsFilterButton
+              key="ingredients-filter-details-all"
               id="ingredients-all"
               icon="infinity"
               count={recipes.nodes.length}

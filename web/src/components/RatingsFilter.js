@@ -18,6 +18,7 @@ export default function RatingsFilter({ activeRating }) {
 
           return (
             <Tooltip
+              key={`filter-rating-${i}`}
               title={
                 <Typography>
                   {isFilterRatingDefault
@@ -28,7 +29,6 @@ export default function RatingsFilter({ activeRating }) {
               placement="top"
             >
               <Button
-                key={`filter-rating-${i}`}
                 component={Link}
                 to={isFilterRatingDefault ? '/' : `/rating/${ratingCardinals[filterRatingOption]}`}
                 variant={activeRating === filterRatingOption ? 'contained' : 'outlined'}
