@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "description": "Alan Cooks web",
+  "homepage": "https://alancooks.recipes",
   "repository": {
     "type": "git",
     "url": "git@github.com:setoalan/alan-cooks.git"
   },
   "license": "MIT",
-  "author": "Alan Seto",
+  "author": "Alan Seto <hello@alanseto.com>",
   "scripts": {
     "build": "gatsby build",
     "clean": "gatsby clean",
@@ -20,10 +21,10 @@
     "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.15.4",
-    "gatsby": "^5.13.1",
+    "dotenv": "^16.4.5",
+    "gatsby": "^5.13.3",
     "gatsby-plugin-google-gtag": "^5.13.1",
     "gatsby-plugin-image": "^3.13.0",
     "gatsby-plugin-manifest": "^5.13.1",
