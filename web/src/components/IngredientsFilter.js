@@ -70,10 +70,10 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
         expandIcon={<ExpandMoreIcon />}
         aria-controls="ingredients-content"
         id="ingredients-header"
-        sx={{ px: { xs: 1, md: 2 } }}
+        sx={{ height: 53, px: { xs: 1, md: 2 } }}
       >
         <Tooltip title={<Typography>Click to select to filter by ingredient</Typography>} placement="top">
-          <Box sx={{ alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%', ml: '21px' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', ml: '21px' }}>
             <img
               src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
               alt={activeIngredientIcon}

@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import IngredientsFilter from '../components/IngredientsFilter';
+import FavoritesPaper from '../components/FavoritesPaper';
 import Pagination from '../components/Pagination';
 import RatingsFilter from '../components/RatingsFilter';
 import RecipeGrid from '../components/RecipeGrid';
 import SEO from '../components/SEO';
-import { ratingCardinals, FILTER_RATING_DEFAULT } from '../constants';
+import { PATHNAMES, RATING_CARDINALS, FILTER_RATING_DEFAULT } from '../constants';
 
 export default function HomePage({ data, pageContext }) {
   const { totalCount, nodes: recipes } = data.recipes;
@@ -25,15 +23,17 @@ export default function HomePage({ data, pageContext }) {
 
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
+  const { FAVORITES, RATING } = PATHNAMES;
+
   let headerTitle = '';
   let paginationBase = '';
 
   if (favorite) {
     headerTitle = 'Favorites';
-    paginationBase = '/favorites';
+    paginationBase = FAVORITES;
   } else if (rating) {
     headerTitle = `${rating} Star${rating !== 1 ? 's' : ''}`;
-    paginationBase = `/rating/${ratingCardinals[rating]}`;
+    paginationBase = `${RATING}/${RATING_CARDINALS[rating]}`;
   } else if (ingredient) {
     headerTitle = ingredient;
     paginationBase = `/${ingredientSlug}`;
@@ -42,18 +42,11 @@ export default function HomePage({ data, pageContext }) {
   return (
     <>
       <SEO title={headerTitle} />
-      {pathname.includes('/favorites') ? (
-        <Paper
-          square
-          sx={{ alignItems: 'center', mt: 1, mb: 2, height: 48, display: 'flex', justifyContent: 'center' }}
-        >
-          <FavoriteIcon sx={{ color: '#ffc107' }} />
-          <Typography sx={{ mx: 1 }}>ALAN'S FAVORITES</Typography>
-          <FavoriteIcon sx={{ color: '#ffc107' }} />
-        </Paper>
+      {pathname.includes(FAVORITES) ? (
+        <FavoritesPaper />
       ) : (
         <>
-          <RatingsFilter activeRating={rating ?? FILTER_RATING_DEFAULT} />{' '}
+          <RatingsFilter activeRating={rating ?? FILTER_RATING_DEFAULT} />
           <IngredientsFilter activeIngredient={ingredient} activeIngredientIcon={ingredientIcon} />
         </>
       )}
@@ -91,7 +84,7 @@ export const query = graphql`
         date
         image {
           asset {
-            gatsbyImageData(width: 400, placeholder: BLURRED)
+            gatsbyImageData(width: 600, placeholder: BLURRED)
           }
         }
         favorite

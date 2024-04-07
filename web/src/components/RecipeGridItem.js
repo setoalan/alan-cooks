@@ -3,16 +3,21 @@ import { Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import { useTheme } from '@mui/material/styles';
 import { css } from '@emotion/css';
+import { PATHNAMES } from '../constants';
 
 export default function RecipeGridItem({ recipe }) {
   const { name, date, image, favorite, ingredients, slug } = recipe;
+
+  const theme = useTheme();
+
   const dateOptions = { year: '2-digit', month: 'short', day: 'numeric' };
   const recipeDate = new Date(date).toLocaleDateString(undefined, dateOptions);
   const recipeImage = getImage(image.asset);
 
   return (
-    <Link to={`/recipe/${slug.current}`}>
+    <Link to={`${PATHNAMES.RECIPE}/${slug.current}`}>
       <GatsbyImage
         image={recipeImage}
         alt={name}
@@ -31,7 +36,7 @@ export default function RecipeGridItem({ recipe }) {
           .map(({ name }) => name)
           .join(', ')
           .toLowerCase()}`}
-        actionIcon={favorite && <FavoriteIcon sx={{ color: '#ffc107', marginRight: 2 }} />}
+        actionIcon={favorite && <FavoriteIcon sx={{ mr: 2, color: theme.palette.favorite.main }} />}
       />
     </Link>
   );

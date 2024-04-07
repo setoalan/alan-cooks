@@ -3,6 +3,14 @@ const path = require('path');
 const homePage = path.resolve('./src/pages/index.js');
 const recipeTemplate = path.resolve('./src/templates/Recipe.js');
 
+const RATING_CARDINALS = {
+  1: 'one',
+  2: 'two',
+  3: 'three',
+  4: 'four',
+  5: 'five',
+};
+
 async function createRecipePages({ graphql, actions }) {
   const { data } = await graphql(`
     query {
@@ -168,20 +176,12 @@ async function createRatingFilterGridPages({ graphql, actions }) {
     });
   });
 
-  const ratingCardinals = {
-    1: 'one',
-    2: 'two',
-    3: 'three',
-    4: 'four',
-    5: 'five',
-  };
-
   Object.values(ratingCounts).forEach((value, i) => {
     const ratingPageCount = Math.ceil(value / pageSize);
     const ratingValue = i + 1;
 
     Array.from({ length: ratingPageCount }).forEach((_, j) => {
-      const basePath = `rating/${ratingCardinals[ratingValue]}`;
+      const basePath = `rating/${RATING_CARDINALS[ratingValue]}`;
 
       actions.createPage({
         path: j === 0 ? basePath : `${basePath}/page/${j + 1}`,

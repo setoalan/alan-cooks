@@ -9,7 +9,7 @@ export default function Pagination({ totalCount, pageSize, currentPage, skip, ba
 
   return (
     <PaginationMui
-      sx={{ display: 'flex', justifyContent: 'center', marginY: 2 }}
+      sx={{ display: 'flex', justifyContent: 'center', my: 2 }}
       variant="outlined"
       count={totalPages}
       page={currentPage}
