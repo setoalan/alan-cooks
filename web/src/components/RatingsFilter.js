@@ -24,7 +24,7 @@ export default function RatingsFilter({ activeRating }) {
 
     return (
       <>
-        <Box justifyContent="center" sx={{ display: { xs: 'flex', sm: 'none' } }}>
+        <Box justifyContent="center" sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center' }}>
           <Typography>{filterRatingOption} </Typography>
           <Star fontSize="small" sx={{ color: theme.palette.favorite.main }} />
         </Box>

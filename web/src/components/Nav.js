@@ -35,7 +35,6 @@ export default function Nav() {
           />
           <Typography
             fontSize={{ xs: '2rem', sm: '3rem', md: '5rem' }}
-            letterSpacing="-0.2rem"
             color={theme.palette.text.primary}
             sx={{ mt: { xs: 1, sm: 1.25, md: 1.5 }, fontWeight: 300 }}
           >
