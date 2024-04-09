@@ -89,6 +89,7 @@ export const query = graphql`
         }
         favorite
         rating
+        challenge
         ingredients {
           name
         }

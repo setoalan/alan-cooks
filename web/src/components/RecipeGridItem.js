@@ -8,7 +8,7 @@ import { css } from '@emotion/css';
 import { PATHNAMES } from '../constants';
 
 export default function RecipeGridItem({ recipe }) {
-  const { name, date, image, favorite, ingredients, slug } = recipe;
+  const { name, slug, date, image, favorite, challenge, ingredients } = recipe;
 
   const theme = useTheme();
 
@@ -30,13 +30,23 @@ export default function RecipeGridItem({ recipe }) {
         width={200}
         height={200}
       />
+      {challenge ? (
+        <ImageListItemBar
+          title={challenge}
+          position="top"
+          sx={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+          }}
+        />
+      ) : null}
       <ImageListItemBar
         title={name}
         subtitle={`${recipeDate} • ${ingredients
           .map(({ name }) => name)
           .join(', ')
           .toLowerCase()}`}
-        actionIcon={favorite && <FavoriteIcon sx={{ mr: 2, color: theme.palette.favorite.main }} />}
+        position="bottom"
+        actionIcon={favorite ? <FavoriteIcon sx={{ mr: 2, color: theme.palette.favorite.main }} /> : null}
       />
     </Link>
   );

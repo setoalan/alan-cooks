@@ -13,7 +13,10 @@ export default function RecipeGrid({ recipes }) {
           sm: 'repeat(2, 1fr)',
           md: 'repeat(3, 1fr)',
         },
-        gridGap: 4,
+        gridGap: {
+          xs: 16,
+          sm: 8,
+        },
         [`& .${imageListItemClasses.root}`]: {
           display: 'flex',
           flexDirection: 'column',

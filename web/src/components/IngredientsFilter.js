@@ -72,7 +72,7 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
         id="ingredients-header"
         sx={{ height: 53, px: { xs: 1, md: 2 } }}
       >
-        <Tooltip title={<Typography>Click to select to filter by ingredient</Typography>} placement="top">
+        <Tooltip title={<Typography>Filter by ingredient</Typography>} placement="top">
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', ml: '21px' }}>
             <img
               src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}

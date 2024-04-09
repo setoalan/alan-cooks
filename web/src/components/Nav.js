@@ -36,7 +36,7 @@ export default function Nav() {
           <Typography
             fontSize={{ xs: '2rem', sm: '3rem', md: '5rem' }}
             color={theme.palette.text.primary}
-            sx={{ mt: { xs: 1, sm: 1.25, md: 1.5 }, fontWeight: 300 }}
+            sx={{ mt: { xs: 0.5, sm: 1, md: 1.5 }, fontWeight: 300 }}
           >
             Alan Cooks
           </Typography>
