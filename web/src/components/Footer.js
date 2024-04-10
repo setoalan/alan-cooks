@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer>
       <Box display="flex" justifyContent="center" pb={2}>
-        <Typography>&copy; Alan Cooks {new Date().getFullYear()}</Typography>
+        <Typography>&copy; {new Date().getFullYear()} Alan Cooks</Typography>
       </Box>
     </footer>
   );
