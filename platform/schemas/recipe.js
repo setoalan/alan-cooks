@@ -24,7 +24,7 @@ export default {
       type: 'datetime',
       title: 'Date',
       options: {
-        dateFormat: 'M/D/YYYY',
+        dateFormat: 'MM/DD/YYYY',
         timeFormat: 'HH:mm:ss',
       },
       validation: Rule => Rule.required(),
