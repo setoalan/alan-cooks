@@ -7,7 +7,6 @@
     "type": "git",
     "url": "git@github.com:setoalan/alan-cooks.git"
   },
-  "license": "MIT",
   "author": "Alan Seto <hello@alanseto.com>",
   "scripts": {
     "build": "sanity build",
