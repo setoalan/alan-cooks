@@ -73,13 +73,13 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
         sx={{ height: 53, px: { xs: 1, md: 2 } }}
       >
         <Tooltip title={<Typography>Filter by ingredient</Typography>} placement="top">
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', ml: '21px' }}>
+          <Box display="flex" alignItems="center" justifyContent="center" width="100%" ml="21px">
             <img
               src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
               alt={activeIngredientIcon}
               loading="lazy"
             />
-            <Typography sx={{ mx: 1 }}>{activeIngredient?.toUpperCase() || 'ALL INGREDIENTS'}</Typography>
+            <Typography mx={1}>{activeIngredient?.toUpperCase() || 'ALL INGREDIENTS'}</Typography>
             <img
               src={`https://img.icons8.com/color/24/null/${activeIngredientIcon || 'infinity'}.png`}
               alt={activeIngredientIcon}

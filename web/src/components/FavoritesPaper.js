@@ -10,7 +10,7 @@ export default function FavoritesPaper() {
   return (
     <Paper square sx={{ height: 53, my: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <FavoriteIcon sx={{ color: theme.palette.favorite.main }} />
-      <Typography textTransform="uppercase" sx={{ mx: 1 }}>
+      <Typography mx={1} textTransform="uppercase">
         Alan's Favorites
       </Typography>
       <FavoriteIcon sx={{ color: theme.palette.favorite.main }} />

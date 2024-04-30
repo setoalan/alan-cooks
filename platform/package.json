@@ -2,7 +2,6 @@
   "name": "alan-cooks-platform",
   "version": "1.0.0",
   "private": true,
-  "description": "Alan Cooks platform",
   "repository": {
     "type": "git",
     "url": "git@github.com:setoalan/alan-cooks.git"

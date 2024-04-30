@@ -36,7 +36,7 @@ export default function RecipePage({ data }) {
       <SEO title={name} />
       <Grid2 container justifyContent="center" my={2}>
         <Grid2 sm={6}>
-          <Box sx={{ mb: { xs: 1, md: 0 } }}>
+          <Box mb={{ xs: 1, md: 0 }}>
             <GatsbyImage
               image={imageData}
               alt={name}
@@ -51,7 +51,7 @@ export default function RecipePage({ data }) {
         </Grid2>
         <Grid2 sm={6} alignSelf="center" pl={{ xs: 0, sm: 2 }} textAlign="center">
           {favorite || isVegetarian ? (
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 24, gap: 1 }}>
+            <Box display="flex" alignItems="center" justifyContent="center" height={24} gap={1}>
               {favorite ? (
                 <FavoriteIcon sx={{ height: '100%', width: 'unset', color: theme.palette.favorite.main }} />
               ) : null}
@@ -65,7 +65,7 @@ export default function RecipePage({ data }) {
               ) : null}
             </Box>
           ) : null}
-          <Typography variant="h1" fontSize={{ xs: '2rem', md: '3rem' }}>
+          <Typography variant="h1" mt={1} fontSize={{ xs: '2rem', md: '3rem' }}>
             {name}
           </Typography>
           <>
@@ -76,9 +76,9 @@ export default function RecipePage({ data }) {
               <StarBorderIcon key={`star-border-${i}`} fontSize="large" sx={{ color: theme.palette.favorite.main }} />
             ))}
           </>
-          {challenge ? <Typography> {challenge.toUpperCase()}</Typography> : null}
-          <Typography>{formattedDate}</Typography>
-          <Box display="flex" justifyContent="center" flexWrap="wrap" gap={1} sx={{ whiteSpace: 'nowrap' }}>
+          {challenge ? <Typography>{challenge.toUpperCase()}</Typography> : null}
+          <Typography mt={1}>{formattedDate}</Typography>
+          <Box display="flex" justifyContent="center" flexWrap="wrap" mt={1} gap={1} sx={{ whiteSpace: 'nowrap' }}>
             {ingredients.map(({ id, name, slug, icon }) => (
               <Button
                 key={id}
@@ -92,7 +92,7 @@ export default function RecipePage({ data }) {
               </Button>
             ))}
           </Box>
-          <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
+          <Box display="flex" justifyContent="center" alignItems="center" mt={1} gap={1}>
             {url ? (
               <a href={url} target="_blank" rel="noreferrer">
                 <Button

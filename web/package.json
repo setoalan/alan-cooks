@@ -2,7 +2,6 @@
   "name": "alan-cooks-web",
   "version": "1.0.0",
   "private": true,
-  "description": "Alan Cooks web",
   "homepage": "https://alancooks.recipes",
   "repository": {
     "type": "git",

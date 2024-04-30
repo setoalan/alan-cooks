@@ -24,16 +24,12 @@ export default function RatingsFilter({ activeRating }) {
 
     return (
       <>
-        <Box justifyContent="center" sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center' }}>
+        <Box display={{ xs: 'flex', sm: 'none' }} alignItems="center" justifyContent="center">
           <Typography>{filterRatingOption} </Typography>
           <Star fontSize="small" sx={{ color: theme.palette.favorite.main }} />
         </Box>
         {[...Array(filterRatingOption)].map((_, i) => (
-          <Box
-            key={`${filterRatingOption}-star-${i}`}
-            justifyContent="center"
-            sx={{ display: { xs: 'none', sm: 'flex' } }}
-          >
+          <Box key={`${filterRatingOption}-star-${i}`} display={{ xs: 'none', sm: 'flex' }} justifyContent="center">
             <Star fontSize="small" sx={{ color: theme.palette.favorite.main }} />
           </Box>
         ))}
