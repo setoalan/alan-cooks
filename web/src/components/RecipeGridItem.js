@@ -8,12 +8,10 @@ import { css } from '@emotion/css';
 import { PATHNAMES } from '../constants';
 
 export default function RecipeGridItem({ recipe }) {
-  const { name, slug, date, image, favorite, challenge, ingredients } = recipe;
+  const { name, slug, image, rating, favorite, challenge, ingredients } = recipe;
 
   const theme = useTheme();
 
-  const dateOptions = { year: '2-digit', month: 'short', day: 'numeric' };
-  const recipeDate = new Date(date).toLocaleDateString(undefined, dateOptions);
   const recipeImage = getImage(image.asset);
 
   return (
@@ -41,12 +39,17 @@ export default function RecipeGridItem({ recipe }) {
       ) : null}
       <ImageListItemBar
         title={name}
-        subtitle={`${recipeDate} • ${ingredients
+        subtitle={`${rating} ⭐  • ${ingredients
           .map(({ name }) => name)
           .join(', ')
           .toLowerCase()}`}
         position="bottom"
         actionIcon={favorite ? <FavoriteIcon sx={{ mr: 2, color: theme.palette.favorite.main }} /> : null}
+        sx={{
+          [`& .MuiImageListItemBar-subtitle`]: {
+            lineHeight: 1.2,
+          },
+        }}
       />
     </Link>
   );
