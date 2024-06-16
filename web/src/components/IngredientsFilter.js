@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IngredientsFilterButton from './IngredientsFilterButton';
 
-function getIngredientsWithCounts(recipes) {
+const getIngredientsWithCounts = (recipes) => {
   const ingredientCounts = recipes
     .map(({ ingredients }) => ingredients)
     .flat()
@@ -32,7 +32,7 @@ function getIngredientsWithCounts(recipes) {
     }, {});
 
   return Object.values(ingredientCounts).sort((a, b) => b.count - a.count);
-}
+};
 
 export default function IngredientsFilter({ activeIngredient, activeIngredientIcon }) {
   const { recipes } = useStaticQuery(graphql`
@@ -56,7 +56,7 @@ export default function IngredientsFilter({ activeIngredient, activeIngredientIc
     ...[
       {
         id: 'ingredients-all',
-        name: 'All Ingredients',
+        name: 'All ingredients',
         icon: 'infinity',
         count: recipes.nodes.length,
       },

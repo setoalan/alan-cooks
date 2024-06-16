@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import Star from '@mui/icons-material/Star';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -12,30 +12,62 @@ import { FILTER_RATING_OPTIONS, PATHNAMES, RATING_CARDINALS, FILTER_RATING_DEFAU
 
 const { Fragment } = React;
 
+const getRatingsWithCounts = (recipes) => {
+  const ratingCounts = recipes
+    .map(({ rating }) => rating)
+    .reduce((acc, rating) => {
+      const existingRating = acc[rating];
+
+      if (existingRating) {
+        existingRating.count += 1;
+      } else {
+        acc[rating] = {
+          count: 1,
+        };
+      }
+
+      return acc;
+    }, {});
+
+  return Object.values(ratingCounts).reverse();
+};
+
+const getButtonContent = (isFilterRatingDefault, filterRatingOption, theme) => {
+  if (isFilterRatingDefault) {
+    return <img src={`https://img.icons8.com/color/24/null/infinity.png`} alt="All ratings" loading="lazy" />;
+  }
+
+  return (
+    <>
+      <Box display={{ xs: 'flex', sm: 'none' }} alignItems="center" justifyContent="center">
+        <Typography>{filterRatingOption} </Typography>
+        <Star fontSize="small" sx={{ color: theme.palette.favorite.main }} />
+      </Box>
+      {[...Array(filterRatingOption)].map((_, i) => (
+        <Box key={`${filterRatingOption}-star-${i}`} display={{ xs: 'none', sm: 'flex' }} justifyContent="center">
+          <Star fontSize="small" sx={{ color: theme.palette.favorite.main }} />
+        </Box>
+      ))}
+    </>
+  );
+};
+
 export default function RatingsFilter({ activeRating }) {
   const theme = useTheme();
 
   const { HOME, RATING } = PATHNAMES;
 
-  const getButtonContent = (isFilterRatingDefault, filterRatingOption) => {
-    if (isFilterRatingDefault) {
-      return <img src={`https://img.icons8.com/color/24/null/infinity.png`} alt="All ratings" loading="lazy" />;
+  const { recipes } = useStaticQuery(graphql`
+    query {
+      recipes: allSanityRecipe {
+        nodes {
+          rating
+        }
+      }
     }
+  `);
 
-    return (
-      <>
-        <Box display={{ xs: 'flex', sm: 'none' }} alignItems="center" justifyContent="center">
-          <Typography>{filterRatingOption} </Typography>
-          <Star fontSize="small" sx={{ color: theme.palette.favorite.main }} />
-        </Box>
-        {[...Array(filterRatingOption)].map((_, i) => (
-          <Box key={`${filterRatingOption}-star-${i}`} display={{ xs: 'none', sm: 'flex' }} justifyContent="center">
-            <Star fontSize="small" sx={{ color: theme.palette.favorite.main }} />
-          </Box>
-        ))}
-      </>
-    );
-  };
+  const ratings = [{ count: recipes.nodes.length }, ...getRatingsWithCounts(recipes.nodes)];
 
   return (
     <Paper square sx={{ mt: 2, px: { xs: 1, md: 2 }, py: 1 }}>
@@ -49,8 +81,8 @@ export default function RatingsFilter({ activeRating }) {
               title={
                 <Typography>
                   {isFilterRatingDefault
-                    ? 'All ratings'
-                    : `${filterRatingOption} star${filterRatingOption !== 1 ? 's' : ''}`}
+                    ? `All ratings • ${ratings[i].count}`
+                    : `${filterRatingOption} ${filterRatingOption === 1 ? 'star' : 'stars'} • ${ratings[i].count}`}
                 </Typography>
               }
               placement="top"
@@ -61,7 +93,7 @@ export default function RatingsFilter({ activeRating }) {
                 variant={activeRating === filterRatingOption ? 'contained' : 'outlined'}
                 value={filterRatingOption}
               >
-                {getButtonContent(isFilterRatingDefault, filterRatingOption)}
+                {getButtonContent(isFilterRatingDefault, filterRatingOption, theme)}
               </Button>
             </Tooltip>
           );
