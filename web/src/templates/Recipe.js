@@ -8,6 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { useTheme } from '@mui/material/styles';
@@ -53,15 +54,19 @@ export default function RecipePage({ data }) {
           {favorite || isVegetarian ? (
             <Box display="flex" alignItems="center" justifyContent="center" height={24} gap={1}>
               {favorite ? (
-                <FavoriteIcon sx={{ height: '100%', width: 'unset', color: theme.palette.favorite.main }} />
+                <Tooltip title={<Typography>Favorite</Typography>} placement="top">
+                  <FavoriteIcon sx={{ height: '100%', width: 'unset', color: theme.palette.favorite.main }} />
+                </Tooltip>
               ) : null}
               {isVegetarian ? (
-                <img
-                  src="https://img.icons8.com/color/56/null/vegetarian-mark.png"
-                  alt="vegetarian"
-                  height="100%"
-                  loading="lazy"
-                />
+                <Tooltip title={<Typography>Vegetarian</Typography>} placement="top">
+                  <img
+                    src="https://img.icons8.com/color/56/null/vegetarian-mark.png"
+                    alt="vegetarian"
+                    height="100%"
+                    loading="lazy"
+                  />
+                </Tooltip>
               ) : null}
             </Box>
           ) : null}
