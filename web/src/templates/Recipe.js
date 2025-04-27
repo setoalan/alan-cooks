@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { graphql, Link } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image';
 import { css } from '@emotion/css';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -15,7 +15,7 @@ import { useTheme } from '@mui/material/styles';
 import SEO from '../components/SEO';
 import { PATHNAMES } from '../constants';
 
-export default function RecipePage({ data }) {
+export default function RecipePage({ location, data }) {
   const { recipe } = data;
   const { name, date, url, image, rating, favorite, challenge, challengeUrl, ingredients } = recipe;
 
@@ -30,11 +30,12 @@ export default function RecipePage({ data }) {
     minute: '2-digit',
   });
   const imageData = getImage(image.asset);
+  const imageSrc = getSrc(image.asset);
   const isVegetarian = ingredients.every(({ vegetarian }) => vegetarian);
 
   return (
     <>
-      <SEO title={name} />
+      <SEO title={name} url={location.href} image={imageSrc} />
       <Grid2 container justifyContent="center" my={2}>
         <Grid2 sm={6}>
           <Box mb={{ xs: 1, md: 0 }}>
