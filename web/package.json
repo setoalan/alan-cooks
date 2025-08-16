@@ -14,7 +14,8 @@
     "deploy": "vercel",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
-    "start": "gatsby develop"
+    "start": "gatsby develop",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",
@@ -34,7 +35,11 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
     "eslint": "^8.6.0",
-    "eslint-config-react-app": "^7.0.1"
+    "eslint-config-react-app": "^7.0.1",
+    "typescript": "^5.9.2"
   }
 }

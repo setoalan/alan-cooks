@@ -12,7 +12,8 @@
     "deploy": "sanity deploy",
     "deploy:graphql": "sanity graphql deploy production",
     "dev": "sanity dev",
-    "start": "sanity start"
+    "start": "sanity start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@sanity/dashboard": "^4.1.4",
@@ -24,6 +25,8 @@
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^2.0.1",
-    "eslint": "^8.6.0"
+    "@types/react": "^19.1.10",
+    "eslint": "^8.6.0",
+    "typescript": "^5.9.2"
   }
 }
