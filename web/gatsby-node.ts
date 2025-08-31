@@ -1,7 +1,7 @@
-const path = require('path');
+import path from 'path';
 
-const homePage = path.resolve('./src/pages/index.js');
-const recipeTemplate = path.resolve('./src/templates/Recipe.js');
+const HomePage = path.resolve('./src/pages/index.js');
+const RecipeTemplate = path.resolve('./src/templates/Recipe.js');
 
 const RATING_CARDINALS = {
   1: 'one',
@@ -29,7 +29,7 @@ async function createRecipePages({ graphql, actions }) {
 
     actions.createPage({
       path: `recipe/${current}`,
-      component: recipeTemplate,
+      component: RecipeTemplate,
       context: {
         slug: current,
       },
@@ -54,7 +54,7 @@ async function createRecipeGridPages({ graphql, actions }) {
 
     actions.createPage({
       path: `/page/${i + 1}`,
-      component: homePage,
+      component: HomePage,
       context: {
         pageSize,
         currentPage: i + 1,
@@ -113,7 +113,7 @@ async function createIngredientFilterGridPages({ graphql, actions }) {
 
       actions.createPage({
         path: i === 0 ? basePath : `${basePath}/page/${i + 1}`,
-        component: homePage,
+        component: HomePage,
         context: {
           ingredient: name,
           ingredientRegex: `/${name.replace('+', '\\+')}/i`,
@@ -166,7 +166,7 @@ async function createRatingFilterGridPages({ graphql, actions }) {
 
     actions.createPage({
       path: i === 0 ? basePath : `${basePath}/page/${i + 1}`,
-      component: homePage,
+      component: HomePage,
       context: {
         favorite: true,
         pageSize,
@@ -185,7 +185,7 @@ async function createRatingFilterGridPages({ graphql, actions }) {
 
       actions.createPage({
         path: j === 0 ? basePath : `${basePath}/page/${j + 1}`,
-        component: homePage,
+        component: HomePage,
         context: {
           rating: ratingValue,
           pageSize,
@@ -206,6 +206,4 @@ async function createPages(params) {
   ]);
 }
 
-module.exports = {
-  createPages,
-};
+export { createPages };

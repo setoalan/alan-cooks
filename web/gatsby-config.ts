@@ -1,12 +1,14 @@
-require('dotenv').config({ path: '.env' });
+import dotenv from 'dotenv';
+import type { GatsbyConfig } from 'gatsby';
 
-module.exports = {
+dotenv.config({ path: '.env' });
+
+export default {
   siteMetadata: {
     title: 'Alan Cooks',
     siteUrl: 'https://www.alancooks.recipes',
     description: 'Alan cooks recipes!',
   },
-  trailingSlash: 'always',
   plugins: [
     'gatsby-plugin-image',
     {
@@ -21,7 +23,6 @@ module.exports = {
       options: {
         projectId: process.env.SANITY_PROJECT_ID,
         dataset: process.env.SANITY_DATASET,
-        watchMode: true,
         token: process.env.SANITY_TOKEN,
       },
     },
@@ -33,4 +34,4 @@ module.exports = {
       },
     },
   ],
-};
+} as GatsbyConfig;
