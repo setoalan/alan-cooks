@@ -1,7 +1,7 @@
 import path from 'path';
 
-const HomePage = path.resolve('./src/pages/index.js');
-const RecipeTemplate = path.resolve('./src/templates/Recipe.js');
+const HomePage = path.resolve('./src/pages/index.tsx');
+const RecipeTemplate = path.resolve('./src/templates/Recipe.tsx');
 
 const RATING_CARDINALS = {
   1: 'one',
