@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import Grid2 from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
 import SEO from '../components/SEO';
 import { PATHNAMES } from '../constants';
@@ -36,8 +36,8 @@ export default function RecipePage({ location, data }) {
   return (
     <>
       <SEO title={name} url={location.href} image={imageSrc} />
-      <Grid2 container justifyContent="center" my={2}>
-        <Grid2 sm={6}>
+      <Grid container justifyContent="center" my={2}>
+        <Grid size={{ sm: 6 }}>
           <Box mb={{ xs: 1, md: 0 }}>
             <GatsbyImage
               image={imageData}
@@ -50,8 +50,8 @@ export default function RecipePage({ location, data }) {
               `}
             />
           </Box>
-        </Grid2>
-        <Grid2 sm={6} alignSelf="center" pl={{ xs: 0, sm: 2 }} textAlign="center">
+        </Grid>
+        <Grid size={{ sm: 6 }} alignSelf="center" pl={{ xs: 0, sm: 2 }} textAlign="center">
           {favorite || isVegetarian ? (
             <Box display="flex" alignItems="center" justifyContent="center" height={24} gap={1}>
               {favorite ? (
@@ -124,8 +124,8 @@ export default function RecipePage({ location, data }) {
               </a>
             ) : null}
           </Box>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </>
   );
 }
