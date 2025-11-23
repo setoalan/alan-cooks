@@ -41,5 +41,10 @@
     "eslint": "^8.6.0",
     "eslint-config-react-app": "^7.0.1",
     "typescript": "^5.9.2"
+  },
+  "overrides": {
+    "axios": "0.30.2",
+    "cookie": "0.7.0",
+    "tmp": "0.2.4"
   }
 }
