@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import { inject } from '@vercel/analytics';
 import IngredientsFilter from '../components/IngredientsFilter';
 import FavoritesPaper from '../components/FavoritesPaper';
 import Pagination from '../components/Pagination';
@@ -38,6 +39,8 @@ export default function HomePage({ data, pageContext }) {
     headerTitle = ingredient;
     paginationBase = `/${ingredientSlug}`;
   }
+
+  inject();
 
   return (
     <>
